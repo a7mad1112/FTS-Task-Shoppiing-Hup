@@ -1,0 +1,140 @@
+.header {
+  width: 100%;
+  height: 100px;
+  line-height: 80px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  margin-bottom: 300px;
+}
+
+.header_shrink {
+  box-shadow: 5px 5px 15px -5px #fde4e4;
+  background-color: #fff;
+}
+
+.header+div {
+  margin-bottom: 100px;
+}
+
+.logo {
+  text-align: center;
+}
+
+.logo span {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.menu a {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--blue-color, #103755);
+  transition: 0.3s;
+}
+
+.menu a:hover {
+  color: var(--gold-color, #eeb808);
+  transform: translateY(-2px);
+}
+
+.menu a.active_menu {
+  color: var(--gold-color, #eeb808);
+}
+
+.nav_right i {
+  font-size: 1.3rem;
+  color: var(--blue-color, #103755);
+  cursor: pointer;
+}
+
+.nav_right .cart_icon {
+  position: relative;
+}
+
+.nav_right .cart_icon .cart_badge {
+  position: absolute;
+  top: 25px;
+  right: -10px;
+  background-color: var(--gold-color, #eeb808);
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mobile_menu {
+  font-weight: bold;
+  display: none;
+}
+
+
+
+body {
+  height: 8000px !important;
+}
+
+@media (max-width: 992px) {
+  .logo span {
+    font-size: 1.4rem;
+  }
+
+  .navigation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.425);
+    z-index: 99;
+    display: none;
+  }
+
+  .menu {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #fff;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    line-height: 20px;
+  }
+
+  .menu a {
+    font-size: 0.9rem;
+  }
+
+  .mobile_menu {
+    display: block;
+  }
+
+  .cart__icon i,
+  .user i,
+  .mobile__menu i {
+    font-size: 1rem;
+  }
+
+  .show_menu {
+    display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  .logo span {
+    font-size: 1.2rem;
+  }
+
+  .header {
+    height: 80px;
+    line-height: 80px;
+  }
+}

@@ -1,13 +1,61 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root {
+  --gold-color: #eeb808;
+  --blue-color: #103755;
+}
+.text-gold {
+  color: var(--gold-color, #eeb808);
+}
+.text-blue {
+  color: var(--blue-color, #103755)
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=RocknRoll+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Istok+Web:wght@400;700&display=swap');
+
+/* reset default style */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+
+/* base style */
+body {
+  background-color: #fcfcfc !important;
+  font-family: 'Istok Web', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'RocknRoll One', sans-serif !important;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+h1,
+h2 {
+  font-size: 2.1rem;
+  font-weight: 600;
+}
+
+section {
+  padding: 60px 0;
+}
+
+@media only screen and (max-width: 768px) {
+  section {
+    padding: 40px 0;
+  }
+  h1,
+  h2 {
+    font-size: 1.5rem;
+  }
+}
+
