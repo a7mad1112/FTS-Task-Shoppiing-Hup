@@ -3,7 +3,8 @@ import Helmet from "../component/Helmet/Helmet";
 import { Col, Container, Row } from "reactstrap";
 import { Link } from "react-router-dom";
 import heroImg from "../assets/images/hero2.svg";
-import './pagesStyle/home.css'
+import "./pagesStyle/home.css";
+import Categories from "../component/UI/cagegories/Categories";
 const Home = () => {
   return (
     <Helmet title="Home">
@@ -19,8 +20,8 @@ const Home = () => {
                   <br /> with <span>Our Technology</span>
                 </h2>
                 <p>
-                  Find the latest products and gadgets at our online store.
-                  From smartphones and laptops to smart home devices and gaming
+                  Find the latest products and gadgets at our online store. From
+                  smartphones and laptops to smart home devices and gaming
                   consoles, we have everything you need to stay connected and
                   entertained.
                 </p>
@@ -57,6 +58,9 @@ const Home = () => {
             </Col>
           </Row>
         </Container>
+      </section>
+      <section>
+        <Categories />
       </section>
     </Helmet>
   );

@@ -1,0 +1,32 @@
+.category_item {
+  background: #eeb80843;
+  padding: 30px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.category_item:hover {
+  transform: translateY(-15px);
+}
+
+.category_img img {
+  width: 60px;
+  height: 60px;
+}
+
+@media (max-width: 768px) {
+  .category_item {
+    padding: 20px 15px;
+    gap: 0.5rem !important;
+  }
+
+  .category_img img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .category_item h6 {
+    font-size: 0.8rem;
+  }
+}
