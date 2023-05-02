@@ -60,19 +60,16 @@
   font-weight: 500;
 }
 
-
-
-
 @media (max-width: 992px) {
   .hero_title {
     font-size: 1.7rem;
     line-height: 40px;
   }
-  
+
   .hero_content {
     padding-top: 60px;
   }
-  
+
   .hero_btns button {
     padding: 7px 12px;
   }
@@ -80,7 +77,7 @@
   .hero_service p {
     line-height: 15px;
   }
-  
+
   .shipping_icon i {
     padding: 5px;
     background: var(--blue-color, #103755);
@@ -90,5 +87,16 @@
   }
 }
 
-@media (max-width: 768px) {
+.feature_subtitle,
+.feature_title span {
+  color: var(--gold-color, #eeb808);
+}
+
+.feature_title {
+  color: var(--blue-color, #103755);
+}
+
+.feature_item img {
+  width: 80px !important;
+  height: 80px;
 }
