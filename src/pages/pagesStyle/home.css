@@ -1,0 +1,94 @@
+/* hero section */
+.hero_title {
+  font-size: 2.5rem;
+  line-height: 55px;
+}
+
+.hero_title span {
+  color: var(--gold-color, #eeb808);
+}
+
+.hero_content {
+  padding-top: 70px;
+}
+
+.hero_content p {
+  font-size: 1rem;
+  line-height: 30px;
+}
+
+.hero_btns button {
+  border: none;
+  outline: none;
+  padding: 7px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.shop_btn {
+  background-color: var(--blue-color, #103755);
+  color: #fff;
+  transition: 0.3s;
+}
+
+.shop_btn:hover {
+  background-color: var(--gold-color, #eeb808);
+}
+
+.all-products-btn {
+  background: transparent;
+  border: 1px solid var(--blue-color, #103755) !important;
+}
+
+.all-products-btn a,
+.all-products-btn a:hover {
+  color: var(--blue-color, #103755);
+}
+
+.hero_service p {
+  color: var(--gold-color, #eeb808);
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.shipping_icon i {
+  padding: 5px;
+  background: var(--blue-color, #103755);
+  color: #fff;
+  border-radius: 50%;
+  font-weight: 500;
+}
+
+
+
+
+@media (max-width: 992px) {
+  .hero_title {
+    font-size: 1.7rem;
+    line-height: 40px;
+  }
+  
+  .hero_content {
+    padding-top: 60px;
+  }
+  
+  .hero_btns button {
+    padding: 7px 12px;
+  }
+
+  .hero_service p {
+    line-height: 15px;
+  }
+  
+  .shipping_icon i {
+    padding: 5px;
+    background: var(--blue-color, #103755);
+    color: #fff;
+    border-radius: 50%;
+    font-weight: 500;
+  }
+}
+
+@media (max-width: 768px) {
+}

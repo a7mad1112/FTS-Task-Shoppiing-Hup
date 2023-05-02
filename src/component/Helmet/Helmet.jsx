@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react";
 
-const Helmet = () => {
-  return (
-    <div>Helmet</div>
-  )
-}
+const Helmet = (props) => {
+  document.title = "ShoppingHup - " + props.title;
+  return <>{props.children}</>;
+};
 
-export default Helmet
+export default Helmet;
