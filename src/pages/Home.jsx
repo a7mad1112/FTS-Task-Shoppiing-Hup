@@ -47,6 +47,7 @@ const Home = () => {
   useEffect(() => {
     filterProducts();
   }, [category]);
+  const hotProducts = [products[12], products[16], products[19], products[5]];
   return (
     <Helmet title="Home">
       {/* === hero section === */}
@@ -55,7 +56,7 @@ const Home = () => {
           <Row>
             <Col lg="6">
               <div className="hero_content">
-                <h5 className="mb-3">Discover the Latest Products</h5>
+                <h5 className="mb-3 text-blue">Discover the Latest Products</h5>
                 <h2 className="mb-4 hero_title text-blue">
                   <span>Upgrade</span> Your Devices
                   <br /> with <span>Our Technology</span>
@@ -246,6 +247,29 @@ const Home = () => {
                 </ListGroup>
               </div>
             </Col>
+          </Row>
+        </Container>
+      </section>
+      {/* === Hot Products Section === */}
+      <section>
+        <Container>
+          <Row>
+            <Col className="text-center mb-5" lg="12">
+              <h2>Hot Products</h2>
+            </Col>
+            {hotProducts.map((item) => (
+              <Col
+                className="mb-4"
+                xl="3"
+                lg="4"
+                md="4"
+                sm="6"
+                xs="12"
+                key={item.id}
+              >
+                <ProductCard item={item} />
+              </Col>
+            ))}
           </Row>
         </Container>
       </section>
