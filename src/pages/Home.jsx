@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Helmet from "../component/Helmet/Helmet";
 import { Col, Container, Row } from "reactstrap";
 import { Link } from "react-router-dom";
@@ -10,6 +10,8 @@ import Categories from "../component/UI/cagegories/Categories";
 import featureImg01 from "../assets/images/fastShipping.svg";
 import featureImg02 from "../assets/images/santa.svg";
 import featureImg03 from "../assets/images/week.svg";
+import { productsContext } from "../context/productsContext";
+import ProductCard from "../component/UI/productCard/ProductCard";
 const featureData = [
   {
     title: "Fast Shipping",
@@ -31,6 +33,22 @@ const featureData = [
   },
 ];
 const Home = () => {
+  const { products } = useContext(productsContext);
+  // let productsToShow ; // create a copy of products array
+  const [productsToShow, setProductsToShow] = useState([]);
+  const [category, setCategory] = useState("all");
+  function filterProducts() {
+    if (category === "all") {
+      setProductsToShow(products);
+    } else {
+      setProductsToShow(products.filter((prod) => prod.category === category));
+    }
+  }
+  useEffect(() => {
+    filterProducts();
+    console.log(category)
+  }, [category]);
+  // console.log(productsToShow);
   return (
     <Helmet title="Home">
       {/* === hero section === */}
@@ -111,14 +129,65 @@ const Home = () => {
             {featureData.map((item) => (
               <Col className="mt-5" lg="4" md="6" sm="6" key={item.key}>
                 <div className="feature_item text-center px-5 py-3">
-                  <img
-                    className="mb-3"
-                    src={item.imgUrl}
-                    alt="feature-img"
-                  />
+                  <img className="mb-3" src={item.imgUrl} alt="feature-img" />
                   <h5 className="fw-bold">{item.title}</h5>
                   <p>{item.desc}</p>
                 </div>
+              </Col>
+            ))}
+          </Row>
+        </Container>
+      </section>
+      {/* === All Products Section === */}
+      <section>
+        <Container>
+          <Row>
+            <Col lg="12" className="text-center">
+              <h2>Popular Products</h2>
+            </Col>
+            <Col lg="12">
+              <div className="products_category d-flex align-items-center justify-content-center gap-sm-2 gap-lg-4">
+                <button
+                  className={`all_btn ${
+                    category === "all" && "productBtnActive"
+                  }`}
+                  onClick={() => setCategory("all")}
+                >
+                  All
+                </button>
+                <button
+                  className={`${
+                    category === "smartphone" && "productBtnActive"
+                  }`}
+                  onClick={() => setCategory("smartphone")}
+                >
+                  SmartPhone
+                </button>
+                <button
+                  className={`${category === "watch" && "productBtnActive"}`}
+                  onClick={() => setCategory("watch")}
+                >
+                  Watch
+                </button>
+                <button
+                  className={`${category === "laptop" && "productBtnActive"}`}
+                  onClick={() => setCategory("laptop")}
+                >
+                  Laptop
+                </button>
+              </div>
+            </Col>
+            {productsToShow.map((item) => (
+              <Col
+                className="mt-5"
+                xl="3"
+                lg="4"
+                md="4"
+                sm="6"
+                xs="12"
+                key={item.id}
+              >
+                <ProductCard item={item} />
               </Col>
             ))}
           </Row>

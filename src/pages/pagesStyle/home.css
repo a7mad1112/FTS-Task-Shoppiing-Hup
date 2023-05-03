@@ -100,3 +100,35 @@
   width: 80px !important;
   height: 80px;
 }
+
+/* popular products */
+.products_category {
+  background-color: var(--gold-color, #eeb808);
+  text-align: center;
+  margin-top: 30px;
+  padding: 20px 7px;
+  border-radius: 8px;
+}
+
+.products_category button {
+  border: none;
+  outline: none;
+  padding: 6px 20px;
+  background: transparent;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.products_category .productBtnActive {
+  background: #fff;
+  border-radius: 5px;
+  color: var(--gold-color, #eeb808);
+}
+
+@media (max-width: 768px) {
+  .products_category button {
+    padding: 6px 10px;
+    font-size: 1rem;
+  }
+}

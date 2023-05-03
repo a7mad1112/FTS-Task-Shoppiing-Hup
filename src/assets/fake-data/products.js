@@ -171,7 +171,7 @@ const products = [
     image: watch18,
   },
   {
-    id: 18,
+    id: 19,
     title: "HENGTO Fitness",
     price: 150.0,
     category: "watch",
