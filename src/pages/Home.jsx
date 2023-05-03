@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import Helmet from "../component/Helmet/Helmet";
-import { Col, Container, Row } from "reactstrap";
+import { Col, Container, ListGroup, ListGroupItem, Row } from "reactstrap";
 import { Link } from "react-router-dom";
 import heroImg from "../assets/images/hero2.svg";
 import "./pagesStyle/home.css";
 import Categories from "../component/UI/cagegories/Categories";
-
+import whyImg from "../assets/images/map.svg";
 // data for features section
 import featureImg01 from "../assets/images/fastShipping.svg";
 import featureImg02 from "../assets/images/santa.svg";
@@ -46,9 +46,7 @@ const Home = () => {
   }
   useEffect(() => {
     filterProducts();
-    console.log(category)
   }, [category]);
-  // console.log(productsToShow);
   return (
     <Helmet title="Home">
       {/* === hero section === */}
@@ -190,6 +188,64 @@ const Home = () => {
                 <ProductCard item={item} />
               </Col>
             ))}
+          </Row>
+        </Container>
+      </section>
+      {/* === Why Choose Us section === */}
+      <section className="why__choose-us">
+        <Container>
+          <Row>
+            <Col className="mb-5 mb-md-5" lg="6" md="6">
+              <img className="img-fluid" src={whyImg} alt="why-img" />
+            </Col>
+            <Col lg="6" md="6">
+              <div className="why_shopping_hup">
+                <h2 className="shopping_hup_title mb-4 text-blue">
+                  Why <span className="text-gold fw-bold">Shopping Hup?</span>
+                </h2>
+                <p className="shopping_hup_desc">
+                  At ShoppingHup, we provide an exceptional online shopping
+                  experience for our customers. Here are some of the key
+                  features that set us apart:
+                </p>
+                <ListGroup className="mt-4 bg-transparent">
+                  <ListGroupItem className="border-0 ps-1 bg-transparent">
+                    <p className="choose-us-title d-flex align-align-items-center gap-2">
+                      <i className="ri-checkbox-circle-line"></i>
+                      Wide range of products
+                    </p>
+                    <p className="choose-us-desc  bg-transparent">
+                      We offer a wide range of high-quality products, from
+                      electronics to clothing, so that our customers can find
+                      everything they need in one place.
+                    </p>
+                  </ListGroupItem>
+                  <ListGroupItem className="border-0 ps-1  bg-transparent">
+                    <p className="choose-us-title d-flex align-align-items-center gap-2">
+                      <i className="ri-checkbox-circle-line"></i>
+                      Secure and convenient payment options
+                    </p>
+                    <p className="choose-us-desc">
+                      We provide our customers with secure and convenient
+                      payment options, including credit card, debit card, and
+                      online payment gateways, so that they can shop with
+                      confidence.
+                    </p>
+                  </ListGroupItem>
+                  <ListGroupItem className="border-0 ps-1  bg-transparent">
+                    <p className="choose-us-title d-flex align-align-items-center gap-2">
+                      <i className="ri-checkbox-circle-line"></i>
+                      Fast and reliable delivery
+                    </p>
+                    <p className="choose-us-desc">
+                      We understand the importance of timely delivery, and we
+                      work hard to ensure that our customers receive their
+                      orders as quickly as possible, without any delays.
+                    </p>
+                  </ListGroupItem>
+                </ListGroup>
+              </div>
+            </Col>
           </Row>
         </Container>
       </section>

@@ -132,3 +132,15 @@
     font-size: 1rem;
   }
 }
+
+/* Choose Us Section */
+.choose-us-title {
+  color: var(--blue-color, #103755);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.choose-us-title i {
+  color: var(--gold-color, #eeb808);
+  font-weight: 500;
+}
