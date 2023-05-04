@@ -2,9 +2,11 @@
   --gold-color: #eeb808;
   --blue-color: #103755;
 }
+
 .text-gold {
   color: var(--gold-color, #eeb808);
 }
+
 .text-blue {
   color: var(--blue-color, #103755)
 }
@@ -54,6 +56,7 @@ section {
   section {
     padding: 40px 0;
   }
+
   h1,
   h2 {
     font-size: 1.5rem;
@@ -62,4 +65,51 @@ section {
 
 p {
   color: #777;
+}
+
+
+/* Customize ScrollBar */
+/* 
+Webkit based browsers (Chrome, Safari, Opera) 
+moz for 
+
+*/
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--gold-color, #eeb808);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--blue-color, #103755);
+}
+
+::-webkit-scrollbar-button {
+  display: block;
+  height: 10px;
+  width: 100%;
+  background-color: var(--blue-color, #103755);
+
+}
+
+/* For Firefox */
+::-moz-scrollbar {
+  width: 12px;
+}
+
+::-moz-scrollbar-track {
+  background-color: var(--gold-color, #eeb808);
+}
+
+::-moz-scrollbar-thumb {
+  background-color: var(--blue-color, #103755);
+}
+
+::-moz-scrollbar-button {
+  display: block;
+  height: 10px;
+  width: 100%;
+  background-color: var(--blue-color, #103755);
 }
