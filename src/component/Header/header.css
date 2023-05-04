@@ -75,10 +75,6 @@
 
 
 
-body {
-  height: 8000px !important;
-}
-
 @media (max-width: 992px) {
   .logo span {
     font-size: 1.4rem;

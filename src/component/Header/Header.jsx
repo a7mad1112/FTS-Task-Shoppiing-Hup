@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { Container } from "reactstrap";
 import { Link, NavLink } from "react-router-dom";
 import "./header.css";
+import Logo from "../UI/logo/Logo";
 
 const NAV_LINKS = [
   {
@@ -48,12 +49,7 @@ const Header = () => {
       <header ref={headerRef} className="header">
         <Container>
           <div className="nav_wrapper d-flex align-items-center justify-content-between">
-            <div className="logo">
-              <h1>
-                <span className="text-blue">Shopping</span>
-                <span className="text-gold">Hub.</span>
-              </h1>
-            </div>
+            <Logo/>
 
             {/* === menu === */}
             <div className="navigation" ref={menuRef} onClick={toggleMenu}>
