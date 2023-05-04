@@ -144,3 +144,11 @@
   color: var(--gold-color, #eeb808);
   font-weight: 500;
 }
+
+/* Testimonial Section */
+.testimonial {
+  overflow: hidden;
+}
+.testimonial p {
+  line-height: 30px;
+}

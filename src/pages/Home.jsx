@@ -12,6 +12,8 @@ import featureImg02 from "../assets/images/santa.svg";
 import featureImg03 from "../assets/images/week.svg";
 import { productsContext } from "../context/productsContext";
 import ProductCard from "../component/UI/productCard/ProductCard";
+import testimonialImg from "../assets/images/testimonial.svg";
+import TestimonialSlider from "../component/UI/TestimonialSlider/TestimonialSlider";
 const featureData = [
   {
     title: "Fast Shipping",
@@ -270,6 +272,38 @@ const Home = () => {
                 <ProductCard item={item} />
               </Col>
             ))}
+          </Row>
+        </Container>
+      </section>
+      {/* === Testimonial Section === */}
+      <section>
+        <Container>
+          <Row>
+            <Col lg="6" md="6" className="mb-5">
+              <div className="testimonial">
+                <h5 className="testimonial_subtitle text-gold mb-4">
+                  Testimonial
+                </h5>
+                <h2 className="testimonial_title fw-bold">
+                  What our <span className="text-gold">customers</span> are
+                  saying
+                </h2>
+                <p>
+                  Shop with confidence at ShoppingHup! Our satisfied customers
+                  love our wide selection of high-quality electronics, easy
+                  checkout process, and fast and reliable shipping. Join them
+                  and start shopping today!
+                </p>
+                <TestimonialSlider />
+              </div>
+            </Col>
+            <Col lg="6" md="6">
+              <img
+                className="img-fluid"
+                src={testimonialImg}
+                alt="testimonial-img"
+              />
+            </Col>
           </Row>
         </Container>
       </section>

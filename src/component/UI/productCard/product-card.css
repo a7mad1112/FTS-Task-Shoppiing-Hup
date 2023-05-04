@@ -1,7 +1,6 @@
 .product_item {
   text-align: center;
   padding: 30px;
-  cursor: pointer;
   box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.425);
   transition: 0.3s;
 }
