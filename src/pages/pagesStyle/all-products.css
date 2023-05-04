@@ -1,0 +1,63 @@
+.search_widget,
+.sorting_widget select {
+  padding: 7px 15px;
+  border: 1px solid var(--blue-color, #103755);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.search_widget input {
+  border: none;
+  width: 100%;
+  background-color: transparent;
+}
+
+.search_widget input:focus,
+.sorting_widget select:focus {
+  outline: none;
+}
+
+@media (max-width: 768px) {
+  .search_widget {
+    margin-bottom: 20px;
+  }
+
+  .search_widget input {
+    width: 100%;
+    font-size: 0.8rem;
+  }
+
+  .sorting_widget select {
+    width: 100% !important;
+    font-size: 0.8rem;
+  }
+}
+
+.paginationBtns {
+  width: 80%;
+  height: 40px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 0.5rem;
+  list-style: none;
+  margin-top: 50px;
+}
+
+.paginationBtns a {
+  padding: 7px 13px;
+  background: var(--blue-color, #103755);
+  color: #fff !important;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
+  transition: 0.3s;
+}
+
+.active_pagination a,
+.paginationBtns a:hover {
+  background: var(--gold-color, #eeb808);
+}
