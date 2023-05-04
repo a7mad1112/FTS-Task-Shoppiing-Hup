@@ -1,0 +1,7 @@
+.common_section {
+  background: linear-gradient(#212245b2, #212245b2),
+    url('../../../assets/images/common.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 100px 0;
+}
