@@ -1,0 +1,18 @@
+.checkout {
+  background: #f9eabc;
+  padding: 30px;
+}
+
+.checkout_total {
+  border-top: 1px solid var(--blue-color);
+  padding-top: 30px;
+}
+
+@media (max-width: 768px) {
+  .checkout {
+    margin-top: 40px;
+  }
+  .checkout h6 {
+    font-size: 0.9rem;
+  }
+}
