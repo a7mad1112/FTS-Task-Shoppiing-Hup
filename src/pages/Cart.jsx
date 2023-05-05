@@ -61,8 +61,20 @@ const Cart = () => {
 };
 
 const Tr = (props) => {
-  const { removeItem } = useContext(cartContext);
-
+  const { removeItem, toast } = useContext(cartContext);
+  const handleDelete = () => {
+    removeItem(item.id)
+    toast.info(item.title + ' Deleted', {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+  }
   const { item } = props;
   return (
     <tr>
@@ -75,7 +87,7 @@ const Tr = (props) => {
       <td className="cart_item_del">
         <i
           className="ri-delete-bin-line"
-          onClick={() => removeItem(item.id)}
+          onClick={handleDelete}
         ></i>
       </td>
     </tr>

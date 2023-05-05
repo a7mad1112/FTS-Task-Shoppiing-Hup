@@ -3,6 +3,9 @@ import Layout from "./component/Layout/Layout";
 import { productsContext } from "./context/productsContext";
 import productsFromFakeData from "./assets/fake-data/products";
 import { cartContext } from "./context/cartContext";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const App = () => {
   const [products, setProducts] = useState(productsFromFakeData);
   const [cartItems, setCartItems] = useState([]);
@@ -58,9 +61,44 @@ const App = () => {
   return (
     <productsContext.Provider value={{ products, setProducts }}>
       <cartContext.Provider
-        value={{ cartItems, addCartItem, totalQuantity, removeItem, calcTotalPrice, cartUiShow, setCartUiShow }}
+        value={{
+          cartItems,
+          addCartItem,
+          totalQuantity,
+          removeItem,
+          calcTotalPrice,
+          cartUiShow,
+          setCartUiShow,
+          toast,
+        }}
       >
         <Layout />
+        {"notification for adding"}
+        <ToastContainer
+          position="bottom-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+        {"notification for delete"}
+        <ToastContainer
+          position="bottom-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </cartContext.Provider>
     </productsContext.Provider>
   );

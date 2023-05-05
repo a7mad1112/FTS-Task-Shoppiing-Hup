@@ -4,9 +4,21 @@ import { Link } from "react-router-dom";
 import { cartContext } from "../../../context/cartContext";
 
 const ProductCard = (props) => {
-  const { id, title, image, price,  } = props.item;
-  const { addCartItem } = useContext(cartContext);
-  const addToCart = () => addCartItem(props.item);
+  const { id, title, image, price } = props.item;
+  const { addCartItem, toast } = useContext(cartContext);
+  const addToCart = () => {
+    addCartItem(props.item);
+    toast.success(title + " Added", {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
 
   return (
     <div className="product_item">
