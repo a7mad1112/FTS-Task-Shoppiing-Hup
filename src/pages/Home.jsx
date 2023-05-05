@@ -35,6 +35,9 @@ const featureData = [
   },
 ];
 const Home = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const { products } = useContext(productsContext);
   // let productsToShow ; // create a copy of products array
   const [productsToShow, setProductsToShow] = useState([]);

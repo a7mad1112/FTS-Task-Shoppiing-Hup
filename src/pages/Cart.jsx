@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { cartContext } from "../context/cartContext";
 import Helmet from "../component/Helmet/Helmet";
 import CommonSection from "../component/UI/commom-section/CommonSection";
@@ -8,6 +8,9 @@ import { Link } from "react-router-dom";
 
 const Cart = () => {
   const { cartItems, calcTotalPrice } = useContext(cartContext);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <Helmet title="Cart">
       <CommonSection title="Your Cart" />

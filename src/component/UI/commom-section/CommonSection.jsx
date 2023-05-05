@@ -5,7 +5,7 @@ const CommonSection = ({ title }) => {
   return (
     <section className='common_section'>
       <Container>
-        <h2 className='text-white'>{title || "ShoppingHup"}</h2>
+        <h2 className='text-white fw-bold'>{title || "ShoppingHup"}</h2>
       </Container>
     </section>
   )

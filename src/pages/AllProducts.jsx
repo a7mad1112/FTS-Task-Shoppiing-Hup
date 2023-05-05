@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Helmet from "../component/Helmet/Helmet";
 import CommonSection from "../component/UI/commom-section/CommonSection";
 import { Col, Container, Row } from "reactstrap";
@@ -42,6 +42,9 @@ const AllProducts = () => {
   const changePage = ({ selected }) => {
     setPageNumber(selected);
   };
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <Helmet title="All-Products">
       <CommonSection title={"All Products"} />

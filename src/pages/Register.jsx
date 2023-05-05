@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Helmet from "../component/Helmet/Helmet";
 import CommonSection from "../component/UI/commom-section/CommonSection";
 import { Container, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 const Register = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <Helmet title="Register">
       <CommonSection title="Register" />

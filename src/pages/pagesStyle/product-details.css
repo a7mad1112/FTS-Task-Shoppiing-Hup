@@ -1,0 +1,33 @@
+
+
+.single_product_img img{
+  width: 75%;
+}
+
+.product_price {
+  display: flex;
+  align-items: center;
+  column-gap: 1rem;
+  margin-bottom: 0;
+}
+
+.product_price span {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.single_product .category {
+  font-weight: bold;
+  color: var(--blue-color, #103755);
+  display: flex;
+  column-gap: 1rem;
+  margin-top: 10px;
+  align-items: center;
+}
+
+.single_product .category span {
+  padding: 5px 10px;
+  background: #f9eabc;
+  border-radius: 5px;
+  text-transform: capitalize;
+}

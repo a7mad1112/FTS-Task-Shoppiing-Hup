@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Helmet from "./../component/Helmet/Helmet";
 import CommonSection from "./../component/UI/commom-section/CommonSection";
 import { Col, Container, Row } from "reactstrap";
 import { Link } from "react-router-dom";
 import "./pagesStyle/login.css";
 const Login = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <Helmet title="Login">
       <CommonSection title="Login" />
