@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./product-card.css";
 import { Link } from "react-router-dom";
+import { cartContext } from "../../../context/cartContext";
 
 const ProductCard = (props) => {
-  const { id, title, image, price } = props.item;
-  const addToCart = () => 1;
+  const { id, title, image, price,  } = props.item;
+  const { addCartItem } = useContext(cartContext);
+  const addToCart = () => addCartItem(props.item);
+
   return (
     <div className="product_item">
       <div className="product_img">

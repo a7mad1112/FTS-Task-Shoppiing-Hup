@@ -1,8 +1,9 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { Container } from "reactstrap";
 import { Link, NavLink } from "react-router-dom";
 import "./header.css";
 import Logo from "../UI/logo/Logo";
+import { cartContext } from "../../context/cartContext";
 
 const NAV_LINKS = [
   {
@@ -28,6 +29,8 @@ const NAV_LINKS = [
 ];
 
 const Header = () => {
+  const { totalQuantity } = useContext(cartContext);
+
   const menuRef = useRef(null);
   const headerRef = useRef(null);
   const toggleMenu = () => menuRef.current.classList.toggle("show_menu");
@@ -49,7 +52,7 @@ const Header = () => {
       <header ref={headerRef} className="header">
         <Container>
           <div className="nav_wrapper d-flex align-items-center justify-content-between">
-            <Logo/>
+            <Logo />
 
             {/* === menu === */}
             <div className="navigation" ref={menuRef} onClick={toggleMenu}>
@@ -72,7 +75,7 @@ const Header = () => {
             <div className="nav_right d-flex align-items-center gap-4">
               <span className="cart_icon">
                 <i className="ri-shopping-basket-line"></i>
-                <span className="cart_badge">{"totalQuantity" && 4}</span>
+                <span className="cart_badge">{totalQuantity}</span>
               </span>
               <span className="user">
                 <Link to="/login">
