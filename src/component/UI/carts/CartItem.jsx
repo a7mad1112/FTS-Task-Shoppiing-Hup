@@ -8,7 +8,7 @@ const CartItem = ({ item }) => {
     addCartItem(item);
   };
   const decreasetItem = () => {
-    removeItem(item);
+    removeItem(item.id);
   };
   return (
     <ListGroupItem className="border-0 cart_item d-flex align-items-center justify-content-between">
