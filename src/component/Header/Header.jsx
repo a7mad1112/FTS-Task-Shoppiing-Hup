@@ -29,7 +29,7 @@ const NAV_LINKS = [
 ];
 
 const Header = () => {
-  const { totalQuantity } = useContext(cartContext);
+  const { totalQuantity, setCartUiShow } = useContext(cartContext);
 
   const menuRef = useRef(null);
   const headerRef = useRef(null);
@@ -73,7 +73,7 @@ const Header = () => {
 
             {/* === right icons === */}
             <div className="nav_right d-flex align-items-center gap-4">
-              <span className="cart_icon">
+              <span className="cart_icon" onClick={() => setCartUiShow(true)}>
                 <i className="ri-shopping-basket-line"></i>
                 <span className="cart_badge">{totalQuantity}</span>
               </span>

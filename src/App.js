@@ -52,10 +52,13 @@ const App = () => {
       setCartItems(updatedCartItems);
     }
   };
+
+  // state to show the cart in header
+  const [cartUiShow, setCartUiShow] = useState(false);
   return (
     <productsContext.Provider value={{ products, setProducts }}>
       <cartContext.Provider
-        value={{ cartItems, addCartItem, totalQuantity, removeItem, calcTotalPrice }}
+        value={{ cartItems, addCartItem, totalQuantity, removeItem, calcTotalPrice, cartUiShow, setCartUiShow }}
       >
         <Layout />
       </cartContext.Provider>
