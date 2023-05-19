@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { ListGroupItem } from "reactstrap";
-import { cartContext } from "../../../context/cartContext";
+import { cartContext } from '../../context/cartContext'
 import "./cart-item.css";
 const CartItem = ({ item }) => {
   const { addCartItem, removeItem } = useContext(cartContext);

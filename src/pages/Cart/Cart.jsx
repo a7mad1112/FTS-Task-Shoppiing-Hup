@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from "react";
-import { cartContext } from "../context/cartContext";
+import { cartContext } from "../../context/cartContext";
 import Helmet from "../component/Helmet/Helmet";
-import CommonSection from "../component/UI/commom-section/CommonSection";
+import CommonSection from "../component/commom-section/CommonSection";
 import { Col, Container, Row } from "reactstrap";
-import "./pagesStyle/cart-page.css";
+import "./cart-page.css";
 import { Link } from "react-router-dom";
 
 const Cart = () => {
@@ -45,10 +45,14 @@ const Cart = () => {
                 <p>Taxes and shipping will calculate at checkout</p>
                 <div className="cart_page_btn">
                   <button className="addToCart_btn me-4">
-                    <Link className="text-white fw-bold" to="/products">Continue Shopping</Link>
+                    <Link className="text-white fw-bold" to="/products">
+                      Continue Shopping
+                    </Link>
                   </button>
                   <button className="addToCart_btn">
-                    <Link className="text-white fw-bold" to="/checkout">Proceed to checkout</Link>
+                    <Link className="text-white fw-bold" to="/checkout">
+                      Proceed to checkout
+                    </Link>
                   </button>
                 </div>
               </div>
@@ -63,8 +67,8 @@ const Cart = () => {
 const Tr = (props) => {
   const { removeItem, toast } = useContext(cartContext);
   const handleDelete = () => {
-    removeItem(item.id)
-    toast.info(item.title + ' Deleted', {
+    removeItem(item.id);
+    toast.info(item.title + " Deleted", {
       position: "bottom-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -73,8 +77,8 @@ const Tr = (props) => {
       draggable: true,
       progress: undefined,
       theme: "light",
-      });
-  }
+    });
+  };
   const { item } = props;
   return (
     <tr>
@@ -85,10 +89,7 @@ const Tr = (props) => {
       <td>${item.price}</td>
       <td>{item.quantity}x</td>
       <td className="cart_item_del">
-        <i
-          className="ri-delete-bin-line"
-          onClick={handleDelete}
-        ></i>
+        <i className="ri-delete-bin-line" onClick={handleDelete}></i>
       </td>
     </tr>
   );

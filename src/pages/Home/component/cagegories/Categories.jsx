@@ -1,9 +1,10 @@
 import React from "react";
 
-import categoryImg01 from "../../../assets/images/smartphone.svg";
-import categoryImg02 from "../../../assets/images/laptop.svg";
-import categoryImg03 from "../../../assets/images/watch.svg";
-import categoryImg04 from "../../../assets/images/tv.svg";
+
+import categoryImg01 from "../../../../assets/images/smartphone.svg"
+import categoryImg02 from '../../../../assets/images/laptop.svg'
+import categoryImg03 from '../../../../assets/images/watch.svg';
+import categoryImg04 from '../../../../assets/images/tv.svg'
 import { Col, Container, Row } from "reactstrap";
 import './categories.css'
 const categoryData = [

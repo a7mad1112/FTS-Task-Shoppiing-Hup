@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import Header from "../Header/Header";
-import Routers from "../../routes/Routers";
-import Footer from "../Footer/Footer";
-import { cartContext } from './../../context/cartContext';
-import Carts from "../UI/carts/Carts";
+import Header from '../Header/Header'
+import Routers from '../../routes/Routers'
+import Footer from '../Footer/Footer'
+import { cartContext } from "../../context/cartContext";
+import Carts from "../carts/Carts";
 const Layout = () => {
   const { cartUiShow } = useContext(cartContext);
   return (

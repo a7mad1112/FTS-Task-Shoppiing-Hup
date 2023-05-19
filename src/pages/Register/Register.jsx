@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Helmet from "../component/Helmet/Helmet";
-import CommonSection from "../component/UI/commom-section/CommonSection";
+import CommonSection from "../component/commom-section/CommonSection";
 import { Container, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 const Register = () => {

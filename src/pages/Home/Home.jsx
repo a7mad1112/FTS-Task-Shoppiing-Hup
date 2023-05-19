@@ -2,18 +2,18 @@ import React, { useContext, useEffect, useState } from "react";
 import Helmet from "../component/Helmet/Helmet";
 import { Col, Container, ListGroup, ListGroupItem, Row } from "reactstrap";
 import { Link } from "react-router-dom";
-import heroImg from "../assets/images/hero2.svg";
-import "./pagesStyle/home.css";
-import Categories from "../component/UI/cagegories/Categories";
-import whyImg from "../assets/images/map.svg";
+import heroImg from "../../assets/images/hero2.svg";
+import "./home.css";
+import Categories from "./component/cagegories/Categories";
+import whyImg from "../../assets/images/map.svg";
 // data for features section
-import featureImg01 from "../assets/images/fastShipping.svg";
-import featureImg02 from "../assets/images/santa.svg";
-import featureImg03 from "../assets/images/week.svg";
-import { productsContext } from "../context/productsContext";
-import ProductCard from "../component/UI/productCard/ProductCard";
-import testimonialImg from "../assets/images/testimonial.svg";
-import TestimonialSlider from "../component/UI/TestimonialSlider/TestimonialSlider";
+import featureImg01 from "../../assets/images/fastShipping.svg";
+import featureImg02 from "../../assets/images/santa.svg";
+import featureImg03 from "../../assets/images/week.svg";
+import { productsContext } from "../../context/productsContext";
+import ProductCard from "../component/productCard/ProductCard";
+import testimonialImg from "../../assets/images/testimonial.svg";
+import TestimonialSlider from "./component/TestimonialSlider/TestimonialSlider";
 const featureData = [
   {
     title: "Fast Shipping",

@@ -1,12 +1,12 @@
 import React, { useContext, useEffect } from "react";
-import Helmet from "./../component/Helmet/Helmet";
-import CommonSection from "./../component/UI/commom-section/CommonSection";
+import Helmet from "../component/Helmet/Helmet";
+import CommonSection from "../component/commom-section/CommonSection";
 import { useParams } from "react-router-dom";
 import { Col, Container, Row } from "reactstrap";
-import { productsContext } from "./../context/productsContext";
-import "./pagesStyle/product-details.css";
-import { cartContext } from "../context/cartContext";
-import ProductCard from "../component/UI/productCard/ProductCard";
+import { productsContext } from "../../context/productsContext";
+import "./product-details.css";
+import { cartContext } from "../../context/cartContext";
+import ProductCard from "../component/productCard/ProductCard";
 const ProductDetails = () => {
   const { id } = useParams();
   const { products } = useContext(productsContext);

@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from "react";
 import Helmet from "../component/Helmet/Helmet";
-import CommonSection from "../component/UI/commom-section/CommonSection";
+import CommonSection from "../component/commom-section/CommonSection";
 import { Col, Container, Row } from "reactstrap";
-import { cartContext } from "../context/cartContext";
-import './pagesStyle/checkout.css'
+import { cartContext } from "../../context/cartContext";
+import './checkout.css'
 const Checkout = () => {
   useEffect(() => {
     window.scrollTo(0, 0);

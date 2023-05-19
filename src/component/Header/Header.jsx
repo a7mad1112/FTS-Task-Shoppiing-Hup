@@ -2,9 +2,8 @@ import React, { useContext, useEffect, useRef } from "react";
 import { Container } from "reactstrap";
 import { Link, NavLink } from "react-router-dom";
 import "./header.css";
-import Logo from "../UI/logo/Logo";
+import Logo from "../../pages/component/logo/Logo";
 import { cartContext } from "../../context/cartContext";
-
 const NAV_LINKS = [
   {
     toDisplay: "Home",

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { cartContext } from "../../../context/cartContext";
+import { cartContext } from "../../context/cartContext";
 import { ListGroup } from "reactstrap";
 import CartItem from "./CartItem";
 import "./shopping-cart.css";
