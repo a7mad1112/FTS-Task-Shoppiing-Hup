@@ -73,7 +73,7 @@ const App = () => {
         }}
       >
         <Layout />
-        {"notification for adding"}
+        {/* {"notification for adding"} */}
         <ToastContainer
           position="bottom-right"
           autoClose={5000}
@@ -86,7 +86,7 @@ const App = () => {
           pauseOnHover
           theme="light"
         />
-        {"notification for delete"}
+        {/* {"notification for delete"} */}
         <ToastContainer
           position="bottom-right"
           autoClose={5000}

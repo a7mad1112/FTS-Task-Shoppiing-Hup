@@ -28,7 +28,9 @@ const ProductCard = (props) => {
 
       <div className="product_content">
         <h5>
-          <Link to={`/products/${id}`}>{title}</Link>
+          <Link className="animated-link" to={`/products/${id}`}>
+            {title}
+          </Link>
         </h5>
         <div className="d-flex  align-items-center justify-content-between">
           <span className="product_price">${price}</span>
