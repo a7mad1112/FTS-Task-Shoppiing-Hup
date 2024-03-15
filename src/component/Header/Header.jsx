@@ -81,7 +81,7 @@ const Header = () => {
                   to={`https://wa.me/+970592735331?text=${whatsAppText}`}
                   target="_blank"
                 >
-                  <i class="ri-whatsapp-line"></i>
+                  <i className="ri-whatsapp-line"></i>
                 </Link>
               </span>
               <span className="mobile_menu" onClick={toggleMenu}>
@@ -92,7 +92,7 @@ const Header = () => {
                   <i className="ri-search-line"></i>
                 </span>
                 <input
-                  type="text"
+                  type="search"
                   placeholder="انا ابحث عن"
                   // value={searchTerm}
                   // onChange={(e) => setSearchTerm(e.target.value)}
