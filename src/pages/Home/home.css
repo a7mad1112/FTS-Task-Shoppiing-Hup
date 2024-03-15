@@ -101,6 +101,20 @@
   height: 80px;
 }
 
+@media (min-width: 576px) {
+  .feature_item img {
+    width: 120px !important;
+    height: 120px;
+  }
+}
+
+@media (min-width: 992px) {
+  .feature_item img {
+    width: 190px !important;
+    height: 190px;
+  }
+}
+
 /* popular products */
 .products_category {
   background-color: var(--gold-color, #eeb808);

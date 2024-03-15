@@ -1,54 +1,47 @@
-import React from "react";
-import { Col, Container, ListGroup, ListGroupItem, Row } from "reactstrap";
-import Logo from "../../pages/component/logo/Logo";
-import "./footer.css";
+import React from 'react';
+import { Col, Container, ListGroup, ListGroupItem, Row } from 'reactstrap';
+import Logo from '../../pages/component/logo/Logo';
+import './footer.css';
 const Footer = () => {
   return (
     <footer className="footer">
       <Container>
         <Row>
-          <Col lg="3" md="6" sm="6">
+          <Col lg="4" md="6" sm="6">
             <Logo />
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+            <p>
+              هناك العديد من البدائل التي يمكن استخدامها في العربية للنص الوهمي
+              مثل "النص العربي المؤقت" أو "النص البديل المؤقت".
+            </p>
           </Col>
-          <Col lg="3" md="6" sm="6">
-            <h5 className="footer_title">Delivery Time</h5>
+          <Col lg="4" md="6" sm="6">
+            <h5 className="footer_title">وقت التوصيل</h5>
             <ListGroup className="delivery_time_list">
               <ListGroupItem className="delivery_time_item bg-transparent border-0 ps-0">
-                <span>Sunday - Thursday</span>
-                <p>10:00am - 11:00pm</p>
+                <span>الأحد - الخميس</span>
+                <p>10:00 صباحًا - 11:00 مساءً</p>
               </ListGroupItem>
               <ListGroupItem className="delivery_time_item border-0 ps-0 bg-transparent">
-                <span>Friday - Saturday</span>
-                <p>Off day</p>
+                <span>الجمعة - السبت</span>
+                <p>يوم العطلة</p>
               </ListGroupItem>
             </ListGroup>
           </Col>
 
-          <Col lg="3" md="6" sm="6">
-            <h5 className="footer_title">Contact</h5>
+          <Col lg="4" md="6" sm="6">
+            <h5 className="footer_title">التواصل</h5>
             <ListGroup className="delivery_time_list">
               <ListGroupItem className="delivery_time_item border-0 ps-0 bg-transparent">
-                <p>Location: Palestine, Jenin</p>
+                <p>الموقع: فلسطين، جنين</p>
               </ListGroupItem>
               <ListGroupItem className="delivery_time_item border-0 ps-0 bg-transparent">
-                <span>Phone: +970595809023</span>
+                <span>الهاتف: +970595809023</span>
               </ListGroupItem>
               <ListGroupItem className="delivery_time_item border-0 ps-0 bg-transparent">
-                <span>Email:</span>
+                <span>البريد الإلكتروني:</span>
                 <span>ahmalawneh79@gmail.com</span>
               </ListGroupItem>
             </ListGroup>
-          </Col>
-          <Col lg="3" md="6" sm="6">
-            <h5 className="footer_title">Newsletter</h5>
-            <p>Subscribe our newsletter</p>
-            <div className="newsletter">
-              <input type="email" placeholder="Enter your email" />
-              <span>
-                <i className="ri-send-plane-line"></i>
-              </span>
-            </div>
           </Col>
         </Row>
       </Container>
