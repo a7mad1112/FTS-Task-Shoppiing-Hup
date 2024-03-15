@@ -1,21 +1,21 @@
-import React, { useContext } from "react";
-import "./product-card.css";
-import { Link } from "react-router-dom";
-import { cartContext } from "../../../context/cartContext";
+import React, { useContext } from 'react';
+import './product-card.css';
+import { Link } from 'react-router-dom';
+import { cartContext } from '../../../context/cartContext';
 const ProductCard = (props) => {
   const { id, title, image, price } = props.item;
   const { addCartItem, toast } = useContext(cartContext);
   const addToCart = () => {
     addCartItem(props.item);
-    toast.success(title + " Added", {
-      position: "bottom-right",
+    toast.success("تمت اضافة " + title + ' الى السلة', {
+      position: 'bottom-right',
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "light",
+      theme: 'light',
     });
   };
 
@@ -32,10 +32,10 @@ const ProductCard = (props) => {
           </Link>
         </h5>
         <div className="d-flex  align-items-center justify-content-between">
-          <span className="product_price">${price}</span>
           <button className="addToCart_btn" onClick={addToCart}>
-            Add To Cart
+            أضف الى السلة
           </button>
+          <span className="product_price">NIS {price}</span>
         </div>
       </div>
     </div>

@@ -90,7 +90,6 @@ const Home = () => {
                     <Link to="/products">مشاهدة جميع المنتجات</Link>
                   </button>
                 </div>
-
               </div>
             </Col>
             <Col lg="6" className="mt-5">
@@ -106,7 +105,7 @@ const Home = () => {
         <Categories />
       </section>
       {/* === Features Section === */}
-      <section>
+      {/* <section>
         <Container>
           <Row>
             <Col className="text-center" lg="12">
@@ -136,47 +135,15 @@ const Home = () => {
             ))}
           </Row>
         </Container>
-      </section>
-      {/* === All Products Section === */}
-      <section className='products-section'>
+      </section> */}
+      {/* === Popular Products Section === */}
+      <section className="products-section">
         <Container>
           <Row>
             <Col lg="12" className="text-center">
-              <h2>Popular Products</h2>
+              <h2>المنتجات الشائعة</h2>
             </Col>
-            <Col lg="12">
-              <div className="products_category d-flex align-items-center justify-content-center gap-sm-2 gap-lg-4">
-                <button
-                  className={`all_btn ${
-                    category === 'all' && 'productBtnActive'
-                  }`}
-                  onClick={() => setCategory('all')}
-                >
-                  All
-                </button>
-                <button
-                  className={`${
-                    category === 'smartphone' && 'productBtnActive'
-                  }`}
-                  onClick={() => setCategory('smartphone')}
-                >
-                  SmartPhone
-                </button>
-                <button
-                  className={`${category === 'watch' && 'productBtnActive'}`}
-                  onClick={() => setCategory('watch')}
-                >
-                  Watch
-                </button>
-                <button
-                  className={`${category === 'laptop' && 'productBtnActive'}`}
-                  onClick={() => setCategory('laptop')}
-                >
-                  Laptop
-                </button>
-              </div>
-            </Col>
-            {productsToShow.map((item) => (
+            {productsToShow.slice(0, 8).map((item) => (
               <Col
                 className="mt-5"
                 xl="3"
@@ -189,6 +156,9 @@ const Home = () => {
                 <ProductCard item={item} />
               </Col>
             ))}
+            <Col lg="12" className="text-center mt-5">
+              <Link className='more-products' to={'/products'}>اضغط هنا لتصفح المزيد من المنتجات</Link>
+            </Col>
           </Row>
         </Container>
       </section>

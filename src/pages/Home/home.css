@@ -152,3 +152,9 @@
 .testimonial p {
   line-height: 30px;
 }
+
+.more-products {
+  font-weight: 600;
+  color: var(--blue-color, #103755);
+  text-decoration: underline !important;
+}
