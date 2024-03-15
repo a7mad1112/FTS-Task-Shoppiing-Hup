@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
-import { cartContext } from "../../context/cartContext";
-import { ListGroup } from "reactstrap";
-import CartItem from "./CartItem";
-import "./shopping-cart.css";
-import { Link } from "react-router-dom";
+import React, { useContext } from 'react';
+import { cartContext } from '../../context/cartContext';
+import { ListGroup } from 'reactstrap';
+import CartItem from './CartItem';
+import './shopping-cart.css';
+import { Link } from 'react-router-dom';
 const Carts = () => {
   const { cartItems, calcTotalPrice, setCartUiShow } = useContext(cartContext);
   const toggleCart = () => setCartUiShow(false);
@@ -17,7 +17,7 @@ const Carts = () => {
         </div>
         <div className="cart_list">
           {cartItems.length === 0 ? (
-            <h6 className="text-center mt-5">No item added to the cart</h6>
+            <h6 className="text-center mt-5">السلة فارغة</h6>
           ) : (
             cartItems.map((item) => <CartItem item={item} key={item.id} />)
           )}
@@ -25,10 +25,15 @@ const Carts = () => {
 
         <div className="cart_bottom d-flex align-items-center justify-content-between">
           <h6>
-            Subtotal: <span>${calcTotalPrice()}</span>
+            المجموع: <span>NIS {calcTotalPrice()}</span>
           </h6>
           <button>
-            <Link to='/checkout'>Checkout</Link>
+            <Link
+              to={`https://wa.me/+970592735331?text=${'whatsAppText'}`}
+              target="_blank"
+            >
+              طلب
+            </Link>
           </button>
         </div>
       </ListGroup>
