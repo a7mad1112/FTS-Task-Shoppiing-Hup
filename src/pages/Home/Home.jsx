@@ -16,22 +16,16 @@ import testimonialImg from '../../assets/images/testimonial.svg';
 import TestimonialSlider from './component/TestimonialSlider/TestimonialSlider';
 const featureData = [
   {
-    title: 'Fast Shipping',
+    title: 'توصيل سريع',
     imgUrl: featureImg01,
-    desc: 'Get your order quickly and efficiently with our fast shipping options.',
+    desc: 'احصل على طلبك بسرعة وكفاءة مع خيارات الشحن السريعة التي نقدمها.',
     key: 1,
   },
   {
-    title: 'Hassle-Free Returns',
-    imgUrl: featureImg02,
-    desc: 'Not satisfied with your purchase? No problem. We offer hassle-free returns.',
-    key: 2,
-  },
-  {
-    title: '24/7 Customer Support',
+    title: 'دعم العملاء على مدار الساعة',
     imgUrl: featureImg03,
-    desc: 'Have a question or concern? Our customer support team is available 24/7 to assist you.',
-    key: 3,
+    desc: 'هل لديك سؤال أو قلق؟ فريق دعم العملاء لدينا متاح على مدار الساعة لمساعدتك.',
+    key: 2,
   },
 ];
 const Home = () => {
@@ -104,38 +98,6 @@ const Home = () => {
       <section>
         <Categories />
       </section>
-      {/* === Features Section === */}
-      {/* <section>
-        <Container>
-          <Row>
-            <Col className="text-center" lg="12">
-              <h5 className="feature_subtitle mb-4">What we offer</h5>
-              <h2 className="feature_title">Sit back and relax</h2>
-              <h2 className="feature_title">
-                we'll <span>deliver</span>
-              </h2>
-              <p className="mb-1 mt-4 feature_text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Perferendis, placeat.
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Accusamus, ipsam!
-              </p>
-            </Col>
-
-            {featureData.map((item) => (
-              <Col className="mt-5" lg="4" md="6" sm="6" key={item.key}>
-                <div className="feature_item text-center px-5 py-3">
-                  <img className="mb-3" src={item.imgUrl} alt="feature-img" />
-                  <h5 className="fw-bold">{item.title}</h5>
-                  <p>{item.desc}</p>
-                </div>
-              </Col>
-            ))}
-          </Row>
-        </Container>
-      </section> */}
       {/* === Popular Products Section === */}
       <section className="products-section">
         <Container>
@@ -157,8 +119,35 @@ const Home = () => {
               </Col>
             ))}
             <Col lg="12" className="text-center mt-5">
-              <Link className='more-products' to={'/products'}>اضغط هنا لتصفح المزيد من المنتجات</Link>
+              <Link className="more-products" to={'/products'}>
+                اضغط هنا لتصفح المزيد من المنتجات
+              </Link>
             </Col>
+          </Row>
+        </Container>
+      </section>
+      {/* === Features Section === */}
+      <section>
+        <Container>
+          <Row>
+            <Col className="text-center" lg="12">
+              <h5 className="feature_subtitle mb-4">اكتشف أحدث المنتجات</h5>
+              <h2 className="feature_title">استرخ واستمتع سنقوم بالتوصيل</h2>
+              <p className="mb-1 mt-4 feature_text">
+                هناك العديد من البدائل التي يمكن استخدامها في العربية للنص
+                الوهمي مثل "النص العربي المؤقت" أو "النص البديل المؤقت".
+              </p>
+            </Col>
+
+            {featureData.map((item) => (
+              <Col className="mt-5" lg="6" md="6"  key={item.key}>
+                <div className="feature_item text-center px-5 py-3">
+                  <img className="mb-3" src={item.imgUrl} alt="feature-img" />
+                  <h5 className="fw-bold">{item.title}</h5>
+                  <p>{item.desc}</p>
+                </div>
+              </Col>
+            ))}
           </Row>
         </Container>
       </section>
