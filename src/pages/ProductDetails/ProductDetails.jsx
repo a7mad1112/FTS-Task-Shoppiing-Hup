@@ -1,12 +1,12 @@
-import React, { useContext, useEffect } from "react";
-import Helmet from "../component/Helmet/Helmet";
-import CommonSection from "../component/commom-section/CommonSection";
-import { useParams } from "react-router-dom";
-import { Col, Container, Row } from "reactstrap";
-import { productsContext } from "../../context/productsContext";
-import "./product-details.css";
-import { cartContext } from "../../context/cartContext";
-import ProductCard from "../component/productCard/ProductCard";
+import React, { useContext, useEffect } from 'react';
+import Helmet from '../component/Helmet/Helmet';
+import CommonSection from '../component/commom-section/CommonSection';
+import { useParams } from 'react-router-dom';
+import { Col, Container, Row } from 'reactstrap';
+import { productsContext } from '../../context/productsContext';
+import './product-details.css';
+import { cartContext } from '../../context/cartContext';
+import ProductCard from '../component/productCard/ProductCard';
 const ProductDetails = () => {
   const { id } = useParams();
   const { products } = useContext(productsContext);
@@ -29,7 +29,7 @@ const ProductDetails = () => {
               <div className="single_product_img">
                 <img
                   src={currProduct.image}
-                  alt={currProduct.title + " image"}
+                  alt={currProduct.title + ' image'}
                 />
               </div>
             </Col>
@@ -37,17 +37,17 @@ const ProductDetails = () => {
               <div className="single_product">
                 <h2 className="product_title mb-3">{currProduct.title}</h2>
                 <p className="product_price">
-                  price: <span>${currProduct.price}</span>{" "}
+                  price: <span>NIS {currProduct.price}</span>{' '}
                 </p>
                 <p className="category">
-                  Category: <span>{currProduct.category}</span>{" "}
+                  الفئة: <span>{currProduct.category}</span>{' '}
                 </p>
                 <p className="mb-4">{currProduct.desc}</p>
                 <button
                   className="addToCart_btn"
                   onClick={() => addCartItem(currProduct)}
                 >
-                  Add to Cart
+                  اضف الى السلة
                 </button>
               </div>
             </Col>
@@ -58,7 +58,7 @@ const ProductDetails = () => {
         <Container>
           <Row>
             <Col className="mb-5 mt-4" lg="12">
-              <h2>You might also like</h2>
+              <h2>ربما يعجبك ايضا</h2>
             </Col>
             {relatedProducts.map((item) => (
               <Col
