@@ -1,10 +1,10 @@
-import React, { useContext, useEffect } from "react";
-import { cartContext } from "../../context/cartContext";
-import Helmet from "../component/Helmet/Helmet";
-import CommonSection from "../component/commom-section/CommonSection";
-import { Col, Container, Row } from "reactstrap";
-import "./cart-page.css";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect } from 'react';
+import { cartContext } from '../../context/cartContext';
+import Helmet from '../component/Helmet/Helmet';
+import CommonSection from '../component/commom-section/CommonSection';
+import { Col, Container, Row } from 'reactstrap';
+import './cart-page.css';
+import { Link } from 'react-router-dom';
 
 const Cart = () => {
   const { cartItems, calcTotalPrice } = useContext(cartContext);
@@ -12,23 +12,23 @@ const Cart = () => {
     window.scrollTo(0, 0);
   }, []);
   return (
-    <Helmet title="Cart">
-      <CommonSection title="Your Cart" />
+    <Helmet title="السلة">
+      <CommonSection title="السلة" />
       <section>
         <Container>
           <Row>
             <Col lg="12">
               {cartItems.length === 0 ? (
-                <h5 className="text-center">Your cart is empty</h5>
+                <h5 className="text-center">السلة فارغة</h5>
               ) : (
                 <table className="table table-bordered">
                   <thead>
                     <tr>
-                      <th>Image</th>
-                      <th>Products Title</th>
-                      <th>Price</th>
-                      <th>Quantity</th>
-                      <th>Delete</th>
+                      <th>الصورة</th>
+                      <th>اسم المنتج</th>
+                      <th>السعر</th>
+                      <th>الكمية</th>
+                      <th>حذف</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -40,18 +40,21 @@ const Cart = () => {
               )}
               <div className="mt-4">
                 <h6>
-                  Total: $<span className="cart_total">{calcTotalPrice()}</span>
+                  المجموع: NIS{' '}
+                  <span className="cart_total">{calcTotalPrice()}</span>
                 </h6>
-                <p>Taxes and shipping will calculate at checkout</p>
-                <div className="cart_page_btn">
-                  <button className="addToCart_btn me-4">
-                    <Link className="text-white fw-bold" to="/products">
-                      Continue Shopping
-                    </Link>
-                  </button>
-                  <button className="addToCart_btn">
-                    <Link className="text-white fw-bold" to="/checkout">
-                      Proceed to checkout
+                <div className="hero_btns d-flex align-items-center gap-5 mt-4">
+                  <Link to={'/products'}>
+                    <button className="shop_btn d-flex align-items-center justify-content-between gap-2">
+                      استمر بالتسوق <i className="ri-arrow-left-line"></i>
+                    </button>
+                  </Link>
+
+                  <button className="all-products-btn">
+                    <Link
+                      to={`https://wa.me/+970592735331?text=${'whatsAppText'}`}
+                    >
+                      اطلب من خلال الواتس
                     </Link>
                   </button>
                 </div>
@@ -68,15 +71,15 @@ const Tr = (props) => {
   const { removeItem, toast } = useContext(cartContext);
   const handleDelete = () => {
     removeItem(item.id);
-    toast.info(item.title + " Deleted", {
-      position: "bottom-right",
+    toast.info('تمت ازالة ' + item.title + ' من السلة', {
+      position: 'bottom-right',
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "light",
+      theme: 'light',
     });
   };
   const { item } = props;
@@ -86,7 +89,7 @@ const Tr = (props) => {
         <img src={item.image} alt={item.title} />
       </td>
       <td>{item.title}</td>
-      <td>${item.price}</td>
+      <td>NIS {item.price}</td>
       <td>{item.quantity}x</td>
       <td className="cart_item_del">
         <i className="ri-delete-bin-line" onClick={handleDelete}></i>

@@ -43,7 +43,6 @@ const Home = () => {
   useEffect(() => {
     filterProducts();
   }, [category]);
-  const hotProducts = [products[12], products[16], products[19], products[5]];
   const scrollToNextSection = () => {
     const productsSection = document.querySelector('.products-section');
     // Scroll to the next section
@@ -52,7 +51,7 @@ const Home = () => {
     }
   };
   return (
-    <Helmet title="Home">
+    <Helmet title="الرئيسية">
       {/* === hero section === */}
       <section>
         <Container>
