@@ -4,8 +4,8 @@ const Logo = () => {
   return (
     <div className="logo">
       <h1>
-        <span className="text-blue">Shopping</span>
-        <span className="text-gold">Hub.</span>
+        <span className="text-blue">شهاب&nbsp;</span>
+        <span className="text-gold">ستور.</span>
       </h1>
     </div>
   );

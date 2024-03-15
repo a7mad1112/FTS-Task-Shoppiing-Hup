@@ -8,12 +8,11 @@
 }
 
 .text-blue {
-  color: var(--blue-color, #103755)
+  color: var(--blue-color, #103755);
 }
 
 /* Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=RocknRoll+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Istok+Web:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap');
 
 /* reset default style */
 * {
@@ -25,7 +24,7 @@
 /* base style */
 body {
   background-color: #fcfcfc !important;
-  font-family: 'Istok Web', sans-serif;
+  font-family: 'Cairo', sans-serif;
 }
 
 h1,
@@ -34,7 +33,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'RocknRoll One', sans-serif !important;
+  font-family: 'Cairo', sans-serif;
 }
 
 a {
@@ -67,7 +66,6 @@ p {
   color: #777;
 }
 
-
 /* Customize ScrollBar */
 /* 
 Webkit based browsers (Chrome, Safari, Opera) 
@@ -91,7 +89,6 @@ moz for
   height: 10px;
   width: 100%;
   background-color: var(--blue-color, #103755);
-
 }
 
 /* For Firefox */
