@@ -1,44 +1,26 @@
 import React from 'react';
-
-import categoryImg01 from '../../../../assets/images/smartphone.svg';
-import categoryImg02 from '../../../../assets/images/laptop.svg';
-import categoryImg03 from '../../../../assets/images/watch.svg';
-import categoryImg04 from '../../../../assets/images/tv.svg';
 import { Col, Container, Row } from 'reactstrap';
+import { useQuery } from 'react-query';
 import './categories.css';
-const categoryData = [
-  {
-    display: 'اجهزة ذكية',
-    imgUrl: categoryImg01,
-    key: 1,
-  },
-  {
-    display: 'اجهزة ذكية',
-    imgUrl: categoryImg02,
-    key: 2,
-  },
-  {
-    display: 'ساعات ذكية',
-    imgUrl: categoryImg03,
-    key: 3,
-  },
-  {
-    display: 'اجهزة ذكية',
-    imgUrl: categoryImg04,
-    key: 4,
-  },
-];
-
+import { fetchData } from '../../../../utils/fetchData';
 const Categories = () => {
+  const { data, isLoading, isError } = useQuery({
+    queryFn: () => fetchData('categories'),
+    queryKey: ['categories'],
+  });
+  if (isLoading) return <h1>Loading...</h1>;
+  if (isError)
+    return <h1>Error loading categories. Please try again later.</h1>;
+  const categories = data.categories || [];
   return (
     <Container>
       <Row>
-        {categoryData.map((item) => (
-          <Col className="mb-4" lg="3" md="6" sm="6" xs="6" key={item.key}>
+        {categories?.slice(0, 4).map((item) => (
+          <Col className="mb-4" lg="3" md="6" sm="6" xs="6" key={item._id}>
             <div className="category_item d-flex align-items-center justify-content-center gap-3">
-              <h6>{item.display}</h6>
+              <h6>{item.name}</h6>
               <div className="category_img">
-                <img src={item.imgUrl} alt={item.display} />
+                <img src={item.image?.secure_url} alt={item.name} />
               </div>
             </div>
           </Col>

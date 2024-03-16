@@ -12,6 +12,7 @@
 .category_img img {
   width: 60px;
   height: 60px;
+  object-fit: contain;
 }
 
 @media (max-width: 768px) {

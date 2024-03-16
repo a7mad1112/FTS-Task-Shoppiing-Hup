@@ -1,21 +1,24 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter as Routers } from "react-router-dom";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import reportWebVitals from './reportWebVitals';
+import { BrowserRouter as Routers } from 'react-router-dom';
 import 'remixicon/fonts/remixicon.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
-import "slick-carousel/slick/slick.css"; 
-import "slick-carousel/slick/slick-theme.css";
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+const queryClient = new QueryClient();
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Routers basename="/">
-      <App />
-    </Routers>
+    <QueryClientProvider client={queryClient}>
+      <Routers basename="/">
+        <App />
+      </Routers>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 

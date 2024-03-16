@@ -64,7 +64,7 @@ const AllProducts = () => {
   ];
   return (
     <Helmet title="جميع المنتجات">
-      <CommonSection title={'All Products'} />
+      <CommonSection title={'جميع المنتجات'} />
       <section>
         <Container>
           <Row>
@@ -177,6 +177,14 @@ const AllProducts = () => {
                       placeholder="ادخل اعلى سعر"
                     />
                   </div>
+                </div>
+                <div className="hero_btns d-flex align-items-center gap-5 mt-4">
+                  <button
+                    className="shop_btn d-flex align-items-center justify-content-between gap-2"
+                    // onClick={scrollToNextSection}
+                  >
+                    بحث
+                  </button>
                 </div>
               </div>
             </Col>

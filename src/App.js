@@ -1,11 +1,10 @@
-import { useState } from "react";
-import Layout from "./component/Layout/Layout";
-import { productsContext } from "./context/productsContext";
-import productsFromFakeData from "./assets/fake-data/products";
-import { cartContext } from "./context/cartContext";
-
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { useState } from 'react';
+import Layout from './component/Layout/Layout';
+import { productsContext } from './context/productsContext';
+import productsFromFakeData from './assets/fake-data/products';
+import { cartContext } from './context/cartContext';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const App = () => {
   const [products, setProducts] = useState(productsFromFakeData);
   const [cartItems, setCartItems] = useState([]);
