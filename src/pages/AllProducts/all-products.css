@@ -5,6 +5,9 @@
   border-radius: 5px;
   cursor: pointer;
 }
+.search_widget {
+  max-width: 600px;
+}
 
 .search_widget input {
   border: none;
@@ -60,4 +63,9 @@
 .active_pagination a,
 .paginationBtns a:hover {
   background: var(--gold-color, #eeb808);
+}
+
+.accordion-button::after {
+  margin-right: auto;
+  margin-left: 0 !important;
 }
