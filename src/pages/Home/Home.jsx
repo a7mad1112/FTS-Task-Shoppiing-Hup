@@ -8,8 +8,10 @@ import Categories from './component/cagegories/Categories';
 // data for features section
 import featureImg01 from '../../assets/images/fastShipping.svg';
 import featureImg03 from '../../assets/images/week.svg';
-import { productsContext } from '../../context/productsContext';
 import ProductCard from '../component/productCard/ProductCard';
+import { useQuery } from 'react-query';
+import { fetchData } from '../../utils/fetchData';
+import ProductCardSkeleton from './../../component/skeletons/ProductCardSkeleton';
 
 const featureData = [
   {
@@ -27,29 +29,22 @@ const featureData = [
 ];
 const Home = () => {
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
   }, []);
-  const { products } = useContext(productsContext);
-  // let productsToShow ; // create a copy of products array
-  const [productsToShow, setProductsToShow] = useState([]);
-  const [category, setCategory] = useState('all');
-  function filterProducts() {
-    if (category === 'all') {
-      setProductsToShow(products);
-    } else {
-      setProductsToShow(products.filter((prod) => prod.category === category));
-    }
-  }
-  useEffect(() => {
-    filterProducts();
-  }, [category]);
+  // const { products } = useContext(productsContext);
   const scrollToNextSection = () => {
     const productsSection = document.querySelector('.products-section');
-    // Scroll to the next section
     if (productsSection) {
       productsSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
+  // fetch products
+  const { data, isLoading } = useQuery({
+    queryFn: () => fetchData('products/most-sold?limit=8'),
+    queryKey: ['most-sold-products'],
+  });
+  console.log(data);
+  const products = data?.products;
   return (
     <Helmet title="الرئيسية">
       {/* === hero section === */}
@@ -101,19 +96,33 @@ const Home = () => {
             <Col lg="12" className="text-center">
               <h2>المنتجات الشائعة</h2>
             </Col>
-            {productsToShow.slice(0, 8).map((item) => (
-              <Col
-                className="mt-5"
-                xl="3"
-                lg="4"
-                md="4"
-                sm="6"
-                xs="12"
-                key={item.id}
-              >
-                <ProductCard item={item} />
-              </Col>
-            ))}
+            {isLoading
+              ? [1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
+                  <Col
+                    className="mt-5"
+                    xl="3"
+                    lg="4"
+                    md="4"
+                    sm="6"
+                    xs="12"
+                    key={item}
+                  >
+                    <ProductCardSkeleton />
+                  </Col>
+                ))
+              : products?.map((item) => (
+                  <Col
+                    className="mt-5"
+                    xl="3"
+                    lg="4"
+                    md="4"
+                    sm="6"
+                    xs="12"
+                    key={item._id}
+                  >
+                    <ProductCard item={item} isLoading={isLoading} />
+                  </Col>
+                ))}
             <Col lg="12" className="text-center mt-5">
               <Link className="more-products" to={'/products'}>
                 اضغط هنا لتصفح المزيد من المنتجات
@@ -136,7 +145,7 @@ const Home = () => {
             </Col>
 
             {featureData.map((item) => (
-              <Col className="mt-5" lg="6" md="6"  key={item.key}>
+              <Col className="mt-5" lg="6" md="6" key={item.key}>
                 <div className="feature_item text-center px-5 py-3">
                   <img className="mb-3" src={item.imgUrl} alt="feature-img" />
                   <h5 className="fw-bold">{item.title}</h5>

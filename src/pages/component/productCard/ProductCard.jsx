@@ -3,11 +3,11 @@ import './product-card.css';
 import { Link } from 'react-router-dom';
 import { cartContext } from '../../../context/cartContext';
 const ProductCard = (props) => {
-  const { id, title, image, price } = props.item;
+  const { id, name, mainImage, price } = props.item;
   const { addCartItem, toast } = useContext(cartContext);
   const addToCart = () => {
     addCartItem(props.item);
-    toast.success("تمت اضافة " + title + ' الى السلة', {
+    toast.success('تمت اضافة ' + name + ' الى السلة', {
       position: 'bottom-right',
       autoClose: 5000,
       hideProgressBar: false,
@@ -18,17 +18,16 @@ const ProductCard = (props) => {
       theme: 'light',
     });
   };
-
   return (
     <div className="product_item">
       <div className="product_img">
-        <img src={image} alt={title} />
+        <img src={mainImage?.secure_url} alt={name} />
       </div>
 
       <div className="product_content">
         <h5>
           <Link className="animated-link" to={`/products/${id}`}>
-            {title}
+            {name}
           </Link>
         </h5>
         <div className="d-flex  align-items-center justify-content-between">

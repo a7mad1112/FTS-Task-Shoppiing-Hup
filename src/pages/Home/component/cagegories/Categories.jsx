@@ -6,7 +6,7 @@ import { fetchData } from '../../../../utils/fetchData';
 import CategoriesSkeleton from '../../../../component/skeletons/CategoriesSkeleton';
 const Categories = () => {
   const { data, isLoading, isError } = useQuery({
-    queryFn: () => fetchData('categories'),
+    queryFn: () => fetchData('categories?limit=4'),
     queryKey: ['categories'],
   });
   if (isError)
@@ -18,7 +18,7 @@ const Categories = () => {
         {isLoading ? (
           <CategoriesSkeleton />
         ) : (
-          categories?.slice(0, 4).map((item) => (
+          categories?.map((item) => (
             <Col className="mb-4" lg="3" md="6" sm="6" xs="6" key={item._id}>
               <div className="category_item d-flex align-items-center justify-content-center gap-3">
                 <h6>{item.name}</h6>
