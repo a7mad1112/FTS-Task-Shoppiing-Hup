@@ -4,9 +4,14 @@ import { ListGroup } from 'reactstrap';
 import CartItem from './CartItem';
 import './shopping-cart.css';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { whatsAppInvoice } from '../../utils/whatsAppInvoice';
 const Carts = () => {
-  const { cartItems, calcTotalPrice, setCartUiShow } = useContext(cartContext);
+  const { setCartUiShow } = useContext(cartContext);
+  const { cartItems, totalAmount } = useSelector((state) => state.cart);
   const toggleCart = () => setCartUiShow(false);
+  // create invoice for the whatsApp
+  const whatsAppMsgForm = whatsAppInvoice(cartItems, totalAmount);
   return (
     <div className="cart_container">
       <ListGroup className="cart">
@@ -19,18 +24,20 @@ const Carts = () => {
           {cartItems.length === 0 ? (
             <h6 className="text-center mt-5">السلة فارغة</h6>
           ) : (
-            cartItems.map((item) => <CartItem item={item} key={item.id} />)
+            cartItems.map((item) => <CartItem item={item} key={item._id} />)
           )}
         </div>
 
         <div className="cart_bottom d-flex align-items-center justify-content-between">
           <h6>
-            المجموع: <span>NIS {calcTotalPrice()}</span>
+            المجموع: <span>NIS {totalAmount}</span>
           </h6>
           <button>
             <Link
-              to={`https://wa.me/+970592735331?text=${'whatsAppText'}`}
               target="_blank"
+              to={`https://wa.me/+972592753581?text=${encodeURIComponent(
+                whatsAppMsgForm
+              )}`}
             >
               طلب
             </Link>

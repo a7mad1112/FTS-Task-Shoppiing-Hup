@@ -1,19 +1,19 @@
-import React, { useContext } from 'react';
 import { ListGroupItem } from 'reactstrap';
-import { cartContext } from '../../context/cartContext';
+import { useDispatch } from 'react-redux';
+import { cartActions } from '../../store/shopping-cart/cartSlice';
 import './cart-item.css';
 const CartItem = ({ item }) => {
-  const { addCartItem, removeItem } = useContext(cartContext);
+  const dispatch = useDispatch();
   const incrementItem = () => {
-    addCartItem(item);
+    dispatch(cartActions.addItem({ ...item }));
   };
   const decreasetItem = () => {
-    removeItem(item.id);
+    dispatch(cartActions.removeItem(item._id));
   };
   return (
     <ListGroupItem className="border-0 cart_item d-flex align-items-center justify-content-between">
       <div className="cart_item_info">
-        <h6 className="cart_item_title">{item.title}</h6>
+        <h6 className="cart_item_title">{item.name}</h6>
         <p className=" d-flex align-items-center gap-5 cart_item_price">
           {item.quantity}x <span className="text-gold">NIS {item.price}</span>
         </p>
@@ -28,7 +28,7 @@ const CartItem = ({ item }) => {
         </div>
       </div>
       <div className="cart_item_img">
-        <img src={item.image} alt={item.title + ' image'} />
+        <img src={item.mainImage?.secure_url} alt={item.name + ' image'} />
       </div>
     </ListGroupItem>
   );

@@ -7,27 +7,15 @@ import './cart-page.css';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { cartActions } from '../../store/shopping-cart/cartSlice';
+import { whatsAppInvoice } from '../../utils/whatsAppInvoice';
 
 const Cart = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
   const { cartItems, totalAmount } = useSelector((state) => state.cart);
-  const invoice = cartItems.map(
-    (item, index) => `المنتج ${index + 1}:
-    اسم المنتج: ${item.name}\n
-    السعر: ${item.price}\n
-    الكمية: ${item.quantity}\n
-    السعر الاجمالي للمنتج: ${item.quantity * item.price}\n
-    ------------\n
-    `
-  );
-  const whatsAppMsgForm = `
-  مرحبا, لقد اعجبتني المنتجات التالية:\n
-  ${invoice}
-  السعر الاجمالي للفاتورة: ${totalAmount}
-  `;
-
+  // create invoice for the whatsApp
+  const whatsAppMsgForm = whatsAppInvoice(cartItems, totalAmount);
   return (
     <Helmet title="السلة">
       <CommonSection title="السلة" />

@@ -32,12 +32,12 @@ const cartSlice = createSlice({
     },
     // ===== remove item ======
     removeItem(state, action) {
-      const id = action.payload;
-      const existingItem = state.cartItems.find((item) => item.id === id);
+      const _id = action.payload;
+      const existingItem = state.cartItems.find((item) => item._id === _id);
       state.totalQuantity--;
 
       if (existingItem.quantity === 1) {
-        state.cartItems = state.cartItems.filter((item) => item.id !== id);
+        state.cartItems = state.cartItems.filter((item) => item._id !== _id);
       } else {
         existingItem.quantity--;
         existingItem.totalPrice =
