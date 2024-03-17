@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { cartContext } from '../../context/cartContext';
 import { ListGroup } from 'reactstrap';
 import CartItem from './CartItem';
@@ -10,10 +10,27 @@ const Carts = () => {
   const { setCartUiShow } = useContext(cartContext);
   const { cartItems, totalAmount } = useSelector((state) => state.cart);
   const toggleCart = () => setCartUiShow(false);
+  // close if clicking outside the bar
+  const containerRef = useRef(null);
+  const handleClickOutsideCart = (event) => {
+    if (containerRef.current && event.target === containerRef.current) {
+      toggleCart();
+    }
+  };
+  useEffect(() => {
+    if (setCartUiShow) {
+      document.addEventListener('mousedown', handleClickOutsideCart);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutsideCart);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutsideCart);
+    };
+  }, [setCartUiShow]);
   // create invoice for the whatsApp
   const whatsAppMsgForm = whatsAppInvoice(cartItems, totalAmount);
   return (
-    <div className="cart_container">
+    <div className="cart_container" ref={containerRef}>
       <ListGroup className="cart">
         <div className="cart_close">
           <span onClick={toggleCart}>
