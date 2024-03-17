@@ -4,6 +4,7 @@ import { Link, NavLink } from 'react-router-dom';
 import './header.css';
 import Logo from '../../pages/component/logo/Logo';
 import { cartContext } from '../../context/cartContext';
+import { useSelector } from 'react-redux';
 const NAV_LINKS = [
   {
     toDisplay: 'الرئيسية',
@@ -23,8 +24,8 @@ const NAV_LINKS = [
 ];
 
 const Header = () => {
-  const { totalQuantity, setCartUiShow } = useContext(cartContext);
-
+  const { setCartUiShow } = useContext(cartContext);
+  const totalQuantity = useSelector((state) => state.cart.totalQuantity);
   const menuRef = useRef(null);
   const headerRef = useRef(null);
   const toggleMenu = () => menuRef.current.classList.toggle('show_menu');

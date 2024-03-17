@@ -1,12 +1,15 @@
-import React, { useContext } from 'react';
+import { useDispatch } from 'react-redux';
+import { cartActions } from '../../../store/shopping-cart/cartSlice';
 import './product-card.css';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
 import { cartContext } from '../../../context/cartContext';
 const ProductCard = (props) => {
   const { id, name, mainImage, price } = props.item;
-  const { addCartItem, toast } = useContext(cartContext);
+  const { toast } = useContext(cartContext);
+  const dispatch = useDispatch();
   const addToCart = () => {
-    addCartItem(props.item);
+    dispatch(cartActions.addItem({ ...props.item }));
     toast.success('تمت اضافة ' + name + ' الى السلة', {
       position: 'bottom-right',
       autoClose: 5000,

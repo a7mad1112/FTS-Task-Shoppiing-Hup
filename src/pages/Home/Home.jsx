@@ -43,7 +43,6 @@ const Home = () => {
     queryFn: () => fetchData('products/most-sold?limit=8'),
     queryKey: ['most-sold-products'],
   });
-  console.log(data);
   const products = data?.products;
   return (
     <Helmet title="الرئيسية">
