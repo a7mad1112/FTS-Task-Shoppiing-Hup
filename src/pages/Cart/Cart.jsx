@@ -5,12 +5,29 @@ import CommonSection from '../component/commom-section/CommonSection';
 import { Col, Container, Row } from 'reactstrap';
 import './cart-page.css';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { cartActions } from '../../store/shopping-cart/cartSlice';
 
 const Cart = () => {
-  const { cartItems, calcTotalPrice } = useContext(cartContext);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  const { cartItems, totalAmount } = useSelector((state) => state.cart);
+  const invoice = cartItems.map(
+    (item, index) => `المنتج ${index + 1}:
+    اسم المنتج: ${item.name}\n
+    السعر: ${item.price}\n
+    الكمية: ${item.quantity}\n
+    السعر الاجمالي للمنتج: ${item.quantity * item.price}\n
+    ------------\n
+    `
+  );
+  const whatsAppMsgForm = `
+  مرحبا, لقد اعجبتني المنتجات التالية:\n
+  ${invoice}
+  السعر الاجمالي للفاتورة: ${totalAmount}
+  `;
+
   return (
     <Helmet title="السلة">
       <CommonSection title="السلة" />
@@ -33,15 +50,14 @@ const Cart = () => {
                   </thead>
                   <tbody>
                     {cartItems.map((item) => (
-                      <Tr item={item} key={item.id} />
+                      <Tr item={item} key={item._id} />
                     ))}
                   </tbody>
                 </table>
               )}
               <div className="mt-4">
                 <h6>
-                  المجموع: NIS{' '}
-                  <span className="cart_total">{calcTotalPrice()}</span>
+                  المجموع: NIS <span className="cart_total">{totalAmount}</span>
                 </h6>
                 <div className="hero_btns d-flex align-items-center gap-5 mt-4">
                   <Link to={'/products'}>
@@ -52,7 +68,10 @@ const Cart = () => {
 
                   <button className="all-products-btn">
                     <Link
-                      to={`https://wa.me/+970592735331?text=${'whatsAppText'}`}
+                      target="_blank"
+                      to={`https://wa.me/+972592753581?text=${encodeURIComponent(
+                        whatsAppMsgForm
+                      )}`}
                     >
                       اطلب من خلال الواتس
                     </Link>
@@ -68,9 +87,10 @@ const Cart = () => {
 };
 
 const Tr = (props) => {
-  const { removeItem, toast } = useContext(cartContext);
+  const { toast } = useContext(cartContext);
+  const dispatch = useDispatch();
   const handleDelete = () => {
-    removeItem(item.id);
+    dispatch(cartActions.deleteItem(item._id));
     toast.info('تمت ازالة ' + item.title + ' من السلة', {
       position: 'bottom-right',
       autoClose: 5000,
@@ -86,9 +106,9 @@ const Tr = (props) => {
   return (
     <tr>
       <td className="cart_img_box">
-        <img src={item.image} alt={item.title} />
+        <img src={item.mainImage?.secure_url} alt={item.name} />
       </td>
-      <td>{item.title}</td>
+      <td>{item.name}</td>
       <td>NIS {item.price}</td>
       <td>{item.quantity}x</td>
       <td className="cart_item_del">
