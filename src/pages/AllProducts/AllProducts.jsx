@@ -6,6 +6,9 @@ import { productsContext } from '../../context/productsContext';
 import './all-products.css';
 import ProductCard from '../component/productCard/ProductCard';
 import ReactPaginate from 'react-paginate';
+import { useQuery } from 'react-query';
+import { fetchData } from './../../utils/fetchData';
+import ProductCardSkeleton from '../../component/skeletons/ProductCardSkeleton';
 const AllProducts = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortTerm, setSortTerm] = useState('az');
@@ -48,20 +51,71 @@ const AllProducts = () => {
   const categories = [
     {
       name: 'ملابس',
-      subcategories: [{ name: 'احذية' }, { name: 'طواقي' }, { name: 'بلايز' }],
+      subcategories: [
+        { name: 'احذية', _id: '5' },
+        { name: 'طواقي', _id: '4' },
+        { name: 'بلايز', _id: '3' },
+      ],
     },
     {
       name: 'الكترونيات',
-      subcategories: [{ name: 'كفرات هواتف' }, { name: 'ملصق لابتوب' }],
+      subcategories: [
+        { name: 'كفرات هواتف', _id: '1' },
+        { name: 'ملصق لابتوب', _id: '2' },
+      ],
     },
   ];
 
-  const brands = [
-    { name: 'Nike' },
-    { name: 'Puma' },
-    { name: 'Adidas' },
-    { name: 'Biba' },
+  // fetch products
+  const [queries, setQueries] = useState({});
+  const { data, isLoading } = useQuery({
+    queryFn: () => fetchData('products?limit=9'),
+    queryKey: ['products'],
+  });
+  const handleChange = (e) => {
+    const { value, name } = e.target;
+    const cloned = { ...queries };
+    if (value) {
+      cloned[name] = value;
+    } else {
+      delete cloned[name];
+    }
+    setQueries(cloned);
+  };
+  // handle categories
+  const [subcategories, setSubcategories] = useState([]);
+  const handleCategoriesChange = (e) => {
+    const { value, checked } = e.target;
+    const cloned = [...subcategories];
+    if (checked) {
+      cloned.push(value);
+    } else {
+      const index = cloned.indexOf(value);
+      cloned.splice(index, 1);
+    }
+    setSubcategories(cloned);
+  };
+  // handle brands
+  const brandsData = [
+    { name: 'Nike', _id: '1' },
+    { name: 'Puma', _id: '2' },
+    { name: 'Adidas', _id: '3' },
+    { name: 'Biba', _id: '4' },
   ];
+  const [brands, setBrands] = useState([]);
+  const handleBrands = (e) => {
+    const { value, checked } = e.target;
+    const cloned = [...brands];
+    console.log(checked);
+    if (checked) {
+      cloned.push(value);
+    } else {
+      const index = cloned.indexOf(value);
+      cloned.splice(index, 1);
+    }
+    console.log(cloned);
+    setBrands(cloned);
+  };
   return (
     <Helmet title="جميع المنتجات">
       <CommonSection title={'جميع المنتجات'} />
@@ -71,6 +125,19 @@ const AllProducts = () => {
             {/* Side bar */}
             <Col lg="3" md="4" sm="12" xs="12">
               <div className="sidebar">
+                {/* search filter */}
+                <div className="search_widget d-flex align-items-center justify-content-between gap-2 mb-4">
+                  <span>
+                    <i className="ri-search-line"></i>
+                  </span>
+                  <input
+                    type="search"
+                    name="search"
+                    placeholder="أنا ابحث عن..."
+                    value={queries.search || ''}
+                    onChange={handleChange}
+                  />
+                </div>
                 {/* categories filter */}
                 <h4>الفئات</h4>
                 <div className="accordion" id="categoriesAccordion">
@@ -106,6 +173,12 @@ const AllProducts = () => {
                                   className="form-check-input"
                                   type="checkbox"
                                   id={`categorySubcategory-${index}-${subIndex}`}
+                                  name="categories"
+                                  value={subcategory._id}
+                                  checked={subcategories.includes(
+                                    subcategory._id
+                                  )}
+                                  onChange={handleCategoriesChange}
                                 />
                                 <label
                                   className="form-check-label"
@@ -144,12 +217,15 @@ const AllProducts = () => {
                       data-bs-parent="#brandsAccordion"
                     >
                       <div className="accordion-body">
-                        {brands.map((brand, index) => (
+                        {brandsData.map((brand, index) => (
                           <div className="form-check" key={index}>
                             <input
                               className="form-check-input"
                               type="checkbox"
                               id={`brand-${index}`}
+                              value={brand._id}
+                              checked={brands.includes(brand._id)}
+                              onChange={handleBrands}
                             />
                             <label
                               className="form-check-label"
@@ -168,17 +244,17 @@ const AllProducts = () => {
                   <div className="input-group">
                     <input
                       type="number"
+                      value={queries['max-price'] || ''}
+                      onChange={handleChange}
                       className="form-control"
                       id="maxPrice"
                       style={{ outline: 'none', boxShadow: 'none' }}
-                      name="maxPrice"
-                      // value={maxPrice}
-                      // onChange={(e) => setMaxPrice(e.target.value)}
+                      name="max-price"
                       placeholder="ادخل اعلى سعر"
                     />
                   </div>
                 </div>
-                <div className="hero_btns d-flex align-items-center gap-5 mt-4">
+                <div className="hero_btns d-flex align-items-center gap-5 mt-4 mb-5">
                   <button
                     className="shop_btn d-flex align-items-center justify-content-between gap-2"
                     // onClick={scrollToNextSection}
@@ -191,31 +267,34 @@ const AllProducts = () => {
             <Col lg="9" md="8" sm="12" xs="12">
               {/* Product display section */}
               <div className="products">
-                <div className="search_widget d-flex align-items-center justify-content-between gap-2">
-                  <span>
-                    <i className="ri-search-line"></i>
-                  </span>
-                  <input
-                    type="search"
-                    placeholder="أنا ابحث عن..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                  />
-                </div>
                 <Row>
-                  {productsToShow.map((item) => (
-                    <Col
-                      className="mt-5"
-                      xl="4"
-                      lg="6"
-                      md="6"
-                      sm="6"
-                      xs="12"
-                      key={item.id}
-                    >
-                      <ProductCard item={item} />
-                    </Col>
-                  ))}
+                  {isLoading
+                    ? [1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
+                        <Col
+                          className="mt-5"
+                          xl="4"
+                          lg="6"
+                          md="6"
+                          sm="6"
+                          xs="12"
+                          key={item}
+                        >
+                          <ProductCardSkeleton />
+                        </Col>
+                      ))
+                    : data?.products?.map((item) => (
+                        <Col
+                          className="mb-5"
+                          xl="4"
+                          lg="6"
+                          md="6"
+                          sm="6"
+                          xs="12"
+                          key={item._id}
+                        >
+                          <ProductCard item={item} />
+                        </Col>
+                      ))}
                 </Row>
                 <div className="pagination-container">
                   <ReactPaginate

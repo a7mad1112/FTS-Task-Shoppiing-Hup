@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Helmet from '../component/Helmet/Helmet';
 import { Col, Container, Row } from 'reactstrap';
 import { Link } from 'react-router-dom';
@@ -29,9 +29,8 @@ const featureData = [
 ];
 const Home = () => {
   useEffect(() => {
-    // window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
   }, []);
-  // const { products } = useContext(productsContext);
   const scrollToNextSection = () => {
     const productsSection = document.querySelector('.products-section');
     if (productsSection) {
