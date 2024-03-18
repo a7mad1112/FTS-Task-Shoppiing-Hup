@@ -62,10 +62,18 @@
 
 .active_pagination a,
 .paginationBtns a:hover {
-  background: var(--gold-color, #eeb808);
+  background: var(--gold-color, #eeb808) !important;
 }
 
 .accordion-button::after {
   margin-right: auto;
   margin-left: 0 !important;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: rgb(249, 234, 188) !important;
+}
+
+.accordion-button {
+  background-color: rgb(255, 255, 255) !important;
 }

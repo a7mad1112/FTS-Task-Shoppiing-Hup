@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { cartContext } from '../../../context/cartContext';
 const ProductCard = (props) => {
-  const { id, name, mainImage, price } = props.item;
+  const { _id, name, mainImage, price } = props.item;
   const { toast } = useContext(cartContext);
   const dispatch = useDispatch();
   const addToCart = () => {
@@ -29,7 +29,7 @@ const ProductCard = (props) => {
 
       <div className="product_content">
         <h5>
-          <Link className="animated-link" to={`/products/${id}`}>
+          <Link className="animated-link" to={`/products/${_id}`}>
             {name}
           </Link>
         </h5>

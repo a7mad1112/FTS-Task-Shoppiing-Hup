@@ -1,6 +1,4 @@
-
-
-.single_product_img img{
+.single_product_img img {
   width: 75%;
 }
 
@@ -30,4 +28,13 @@
   background: #f9eabc;
   border-radius: 5px;
   text-transform: capitalize;
+}
+
+@media only screen and (max-width: 576px) {
+  .product__images img {
+    min-width: 60px;
+  }
+}
+.img__item {
+  cursor: pointer;
 }

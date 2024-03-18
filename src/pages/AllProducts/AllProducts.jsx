@@ -310,8 +310,8 @@ const AllProducts = () => {
                   <ReactPaginate
                     pageCount={productsQuery?.data?.totalPages || 0}
                     onPageChange={changePage}
-                    previousLabel="Prev"
-                    nextLabel="Next"
+                    previousLabel="السابق"
+                    nextLabel="التالي"
                     containerClassName="paginationBtns"
                     activeClassName="active_pagination"
                     breakClassName="page-item"

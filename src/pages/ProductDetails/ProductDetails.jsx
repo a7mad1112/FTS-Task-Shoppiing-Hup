@@ -1,52 +1,106 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect, useState, useMemo, useContext } from 'react';
 import Helmet from '../component/Helmet/Helmet';
 import CommonSection from '../component/commom-section/CommonSection';
 import { useParams } from 'react-router-dom';
 import { Col, Container, Row } from 'reactstrap';
-import { productsContext } from '../../context/productsContext';
 import './product-details.css';
-import { cartContext } from '../../context/cartContext';
 import ProductCard from '../component/productCard/ProductCard';
+import { useQuery } from 'react-query';
+import { fetchData } from './../../utils/fetchData';
+import { useDispatch } from 'react-redux';
+import { cartActions } from '../../store/shopping-cart/cartSlice';
+import { cartContext } from '../../context/cartContext';
 const ProductDetails = () => {
+  const dispatch = useDispatch();
   const { id } = useParams();
-  const { products } = useContext(productsContext);
-  const currProduct = products.find((prod) => +id === +prod.id);
-  const relatedProducts = products
-    .filter((prod) => prod.category === currProduct.category)
-    .slice(0, 4);
+  const { data, isLoading } = useQuery({
+    queryFn: () => fetchData(`products/${id}`),
+    queryKey: ['get-specific-product'],
+  });
 
-  const { addCartItem } = useContext(cartContext);
+  const product = useMemo(() => data?.product || {}, [data]);
+
+  const [currentImage, setCurrentImage] = useState(
+    product.mainImage?.secure_url
+  );
+
+  const handleImageClick = (imageSrc) => {
+    setCurrentImage(imageSrc);
+  };
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    setCurrentImage(product.mainImage?.secure_url);
+  }, [product.mainImage]);
+
+  const imagesArray = useMemo(() => {
+    const images = [];
+    if (product.mainImage) {
+      images.push(product.mainImage.secure_url);
+    }
+    if (product.subImages && product.subImages.length > 0) {
+      for (let i = 0; i < Math.min(product.subImages.length, 2); i++) {
+        images.push(product.subImages[i].secure_url);
+      }
+    }
+    return images;
+  }, [product]);
+  const { toast } = useContext(cartContext);
+  const addToCart = () => {
+    dispatch(cartActions.addItem({ ...product }));
+    toast.success('تمت اضافة ' + product.name + ' الى السلة', {
+      position: 'bottom-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    });
+  };
+
   return (
-    <Helmet title={currProduct.title}>
-      <CommonSection title={currProduct.title} />
+    <Helmet title={product?.name}>
+      <CommonSection title={product?.name} />
       <section>
         <Container>
           <Row>
-            <Col lg="6" md="6" sm="6">
+            {imagesArray.length > 0 && (
+              <Col lg="3" md="2" sm="4" xs="4">
+                <div className="product__images">
+                  {imagesArray.map((image, index) => (
+                    <div className="img__item mb-3" key={index}>
+                      <img
+                        className="w-50"
+                        src={image}
+                        alt={`product-img-${index}`}
+                        onClick={() => handleImageClick(image)}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </Col>
+            )}
+            <Col lg="6" md="6" sm="8" xs="8">
               <div className="single_product_img">
-                <img
-                  src={currProduct.image}
-                  alt={currProduct.title + ' image'}
-                />
+                <img src={currentImage} alt={product.name + ' image'} />
               </div>
             </Col>
-            <Col lg="6" md="6" sm="6">
+            <Col lg="3" md="4" sm="12" xs="12" className="mt-4">
               <div className="single_product">
-                <h2 className="product_title mb-3">{currProduct.title}</h2>
+                <h2 className="product_title mb-3">{product.name}</h2>
                 <p className="product_price">
-                  price: <span>NIS {currProduct.price}</span>{' '}
+                  السعر: <span>NIS {product.price}</span>
                 </p>
                 <p className="category">
-                  الفئة: <span>{currProduct.category}</span>{' '}
+                  الفئة: <span>{product.subCategoryId?.name}</span>
                 </p>
-                <p className="mb-4">{currProduct.desc}</p>
-                <button
-                  className="addToCart_btn"
-                  onClick={() => addCartItem(currProduct)}
-                >
+                {product.brandId && (
+                  <p className="category">
+                    العلامة التجارية: <span>{product.brandId?.name}</span>
+                  </p>
+                )}
+                <p className="mb-4">{product.description}</p>
+                <button className="addToCart_btn" onClick={addToCart}>
                   اضف الى السلة
                 </button>
               </div>
@@ -54,7 +108,7 @@ const ProductDetails = () => {
           </Row>
         </Container>
       </section>
-      <section>
+      {/* <section>
         <Container>
           <Row>
             <Col className="mb-5 mt-4" lg="12">
@@ -75,7 +129,7 @@ const ProductDetails = () => {
             ))}
           </Row>
         </Container>
-      </section>
+      </section> */}
     </Helmet>
   );
 };
