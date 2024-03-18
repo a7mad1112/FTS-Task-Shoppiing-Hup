@@ -1,120 +1,121 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useEffect, useReducer, useCallback, useMemo } from 'react';
 import Helmet from '../component/Helmet/Helmet';
 import CommonSection from '../component/commom-section/CommonSection';
 import { Col, Container, Row } from 'reactstrap';
-import { productsContext } from '../../context/productsContext';
 import './all-products.css';
 import ProductCard from '../component/productCard/ProductCard';
 import ReactPaginate from 'react-paginate';
 import { useQuery } from 'react-query';
 import { fetchData } from './../../utils/fetchData';
 import ProductCardSkeleton from '../../component/skeletons/ProductCardSkeleton';
+import { reducer } from './sideBarReducer';
+import AccordionSkeleton from '../../component/skeletons/AccordionSkeleton';
+
+const initialState = {
+  search: '',
+  page: 1,
+  subcategoryIds: [],
+  brandIds: [],
+  'max-price': 0,
+  limit: 6,
+  fields: 'mainImage,price,name,_id',
+};
+
 const AllProducts = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [sortTerm, setSortTerm] = useState('az');
-  const { products } = useContext(productsContext);
-  const [pageNumber, setPageNumber] = useState(0);
+  const [queries, dispatchQueries] = useReducer(reducer, initialState);
 
-  const sortProducts = (products) => {
-    if (sortTerm === 'az' || sortTerm === 'default')
-      return products.slice().sort((a, b) => a.title.localeCompare(b.title));
-    if (sortTerm === 'za')
-      return products.slice().sort((a, b) => b.title.localeCompare(a.title));
-    if (sortTerm === 'hp')
-      return products.slice().sort((a, b) => b.price - a.price);
-    if (sortTerm === 'lp')
-      return products.slice().sort((a, b) => a.price - b.price);
-    return products;
-  };
-
-  const searchedProduct = sortProducts(
-    products.filter((item) => {
-      if (searchTerm.value === '') return item;
-      return item.title.toLowerCase().includes(searchTerm.toLowerCase());
-    })
-  );
-
-  const productPerPage = 8;
-  const visitedPage = pageNumber * productPerPage;
-  const productsToShow = searchedProduct.slice(
-    visitedPage,
-    visitedPage + productPerPage
-  );
-  const pageCount = Math.ceil(searchedProduct.length / productPerPage);
-
-  const changePage = ({ selected }) => {
-    setPageNumber(selected);
-  };
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  const categories = [
-    {
-      name: 'ملابس',
-      subcategories: [
-        { name: 'احذية', _id: '5' },
-        { name: 'طواقي', _id: '4' },
-        { name: 'بلايز', _id: '3' },
-      ],
-    },
-    {
-      name: 'الكترونيات',
-      subcategories: [
-        { name: 'كفرات هواتف', _id: '1' },
-        { name: 'ملصق لابتوب', _id: '2' },
-      ],
-    },
-  ];
 
-  // fetch products
-  const [queries, setQueries] = useState({});
-  const { data, isLoading } = useQuery({
-    queryFn: () => fetchData('products?limit=9'),
+  const queryString = useMemo(() => {
+    return (
+      '?' +
+      Object.keys(queries)
+        .filter((key) => {
+          const value = queries[key];
+          if (Array.isArray(value)) return value.length;
+          return value;
+        })
+        .map((key) => {
+          const value = queries[key];
+          if (Array.isArray(value)) {
+            return `${key}=${value.join(',')}`;
+          }
+          return `${key}=${value}`;
+        })
+        .join('&')
+    );
+  }, [queries]);
+  let clonedQueryString = queryString.slice();
+  const productsQuery = useQuery({
+    queryFn: () => fetchData(`products${clonedQueryString}`),
     queryKey: ['products'],
   });
-  const handleChange = (e) => {
+  const refetchProducts = (queryString) => {
+    productsQuery.refetch({
+      queryFn: () => fetchData(`products${queryString}`),
+    });
+  };
+
+  const { data: categoriesData, isLoading: categoriesLoading } = useQuery({
+    queryFn: () => fetchData('categories'),
+    queryKey: ['categories'],
+  });
+
+  const { data: brandsData, isLoading: brandsLoading } = useQuery({
+    queryFn: () => fetchData('brands'),
+    queryKey: ['brands'],
+  });
+
+  const handleChange = useCallback((e) => {
     const { value, name } = e.target;
-    const cloned = { ...queries };
-    if (value) {
-      cloned[name] = value;
-    } else {
-      delete cloned[name];
-    }
-    setQueries(cloned);
+    dispatchQueries({
+      type: 'SET_SEARCH_OR_MAX_PRICE',
+      payload: { value, name },
+    });
+  }, []);
+
+  const handleCategoriesChange = useCallback((e) => {
+    const { value } = e.target;
+    dispatchQueries({ type: 'TOGGLE_SUBCATEGORY', payload: value });
+  }, []);
+
+  const handleBrands = useCallback((e) => {
+    const { value } = e.target;
+    dispatchQueries({ type: 'TOGGLE_BRAND', payload: value });
+  }, []);
+
+  const handleSubmit = () => {
+    refetchProducts(queryString);
   };
-  // handle categories
-  const [subcategories, setSubcategories] = useState([]);
-  const handleCategoriesChange = (e) => {
-    const { value, checked } = e.target;
-    const cloned = [...subcategories];
-    if (checked) {
-      cloned.push(value);
-    } else {
-      const index = cloned.indexOf(value);
-      cloned.splice(index, 1);
-    }
-    setSubcategories(cloned);
+  const changePage = ({ selected }) => {
+    dispatchQueries({ type: 'SET_PAGE_NUMBER', payload: selected + 1 });
+    clonedQueryString =
+      '?' +
+      Object.keys(queries)
+        .filter((key) => {
+          const value = queries[key];
+          if (key === 'page') return 0;
+          if (Array.isArray(value)) return value.length;
+          return value;
+        })
+        .map((key) => {
+          const value = queries[key];
+          if (Array.isArray(value)) {
+            return `${key}=${value.join(',')}`;
+          }
+          return `${key}=${value}`;
+        })
+        .join('&') +
+      '&page=' +
+      (selected + 1);
+    refetchProducts(clonedQueryString);
   };
-  // handle brands
-  const brandsData = [
-    { name: 'Nike', _id: '1' },
-    { name: 'Puma', _id: '2' },
-    { name: 'Adidas', _id: '3' },
-    { name: 'Biba', _id: '4' },
-  ];
-  const [brands, setBrands] = useState([]);
-  const handleBrands = (e) => {
-    const { value, checked } = e.target;
-    const cloned = [...brands];
-    console.log(checked);
-    if (checked) {
-      cloned.push(value);
-    } else {
-      const index = cloned.indexOf(value);
-      cloned.splice(index, 1);
+  const handleSearchEnter = (e) => {
+    if (e.key === 'Enter') {
+      handleSubmit();
     }
-    console.log(cloned);
-    setBrands(cloned);
   };
   return (
     <Helmet title="جميع المنتجات">
@@ -128,123 +129,130 @@ const AllProducts = () => {
                 {/* search filter */}
                 <div className="search_widget d-flex align-items-center justify-content-between gap-2 mb-4">
                   <span>
-                    <i className="ri-search-line"></i>
+                    <i className="ri-search-line" onClick={handleSubmit}></i>
                   </span>
                   <input
                     type="search"
                     name="search"
                     placeholder="أنا ابحث عن..."
-                    value={queries.search || ''}
+                    value={queries?.search || ''}
                     onChange={handleChange}
+                    onKeyDown={handleSearchEnter}
                   />
                 </div>
                 {/* categories filter */}
                 <h4>الفئات</h4>
                 <div className="accordion" id="categoriesAccordion">
-                  {categories.map((category, index) => (
-                    <div className="accordion-item" key={index}>
-                      <h2
-                        className="accordion-header"
-                        id={`categoryHeading${index}`}
-                      >
-                        <button
-                          className="accordion-button"
-                          style={{ outline: 'none', boxShadow: 'none' }}
-                          type="button"
-                          data-bs-toggle="collapse"
-                          data-bs-target={`#categoryCollapse${index}`}
-                          aria-expanded="true"
-                          aria-controls={`categoryCollapse${index}`}
+                  {categoriesLoading ? (
+                    <AccordionSkeleton />
+                  ) : (
+                    categoriesData?.categories?.map((category) => (
+                      <div className="accordion-item" key={category._id}>
+                        <h2
+                          className="accordion-header"
+                          id={`categoryHeading${category._id}`}
                         >
-                          {category.name}
-                        </button>
-                      </h2>
-                      <div
-                        id={`categoryCollapse${index}`}
-                        className="accordion-collapse collapse"
-                        aria-labelledby={`categoryHeading${index}`}
-                        data-bs-parent="#categoriesAccordion"
-                      >
-                        <div className="accordion-body">
-                          {category.subcategories.map(
-                            (subcategory, subIndex) => (
-                              <div className="form-check" key={subIndex}>
+                          <button
+                            className="accordion-button"
+                            style={{ outline: 'none', boxShadow: 'none' }}
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target={`#categoryCollapse${category._id}`}
+                            aria-expanded="true"
+                            aria-controls={`categoryCollapse${category._id}`}
+                          >
+                            {category.name}
+                          </button>
+                        </h2>
+                        <div
+                          id={`categoryCollapse${category._id}`}
+                          className="accordion-collapse collapse"
+                          aria-labelledby={`categoryHeading${category._id}`}
+                          data-bs-parent="#categoriesAccordion"
+                        >
+                          <div className="accordion-body">
+                            {category.SubCategory?.map((subcategory) => (
+                              <div className="form-check" key={subcategory._id}>
                                 <input
                                   className="form-check-input"
                                   type="checkbox"
-                                  id={`categorySubcategory-${index}-${subIndex}`}
+                                  id={`categorySubcategory-${subcategory._id}`}
                                   name="categories"
                                   value={subcategory._id}
-                                  checked={subcategories.includes(
+                                  checked={queries.subcategoryIds?.includes(
                                     subcategory._id
                                   )}
                                   onChange={handleCategoriesChange}
                                 />
                                 <label
                                   className="form-check-label"
-                                  htmlFor={`categorySubcategory-${index}-${subIndex}`}
+                                  htmlFor={`categorySubcategory-${subcategory._id}`}
                                 >
                                   {subcategory.name}
                                 </label>
                               </div>
-                            )
-                          )}
+                            ))}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    ))
+                  )}
                 </div>
                 {/* brands filter */}
                 <div className="accordion mt-4" id="brandsAccordion">
-                  <div className="accordion-item">
-                    <h2 className="accordion-header" id="brandsHeading">
-                      <button
-                        className="accordion-button"
-                        type="button"
-                        style={{ outline: 'none', boxShadow: 'none' }}
-                        data-bs-toggle="collapse"
-                        data-bs-target="#brandsCollapse"
-                        aria-expanded="true"
-                        aria-controls="brandsCollapse"
+                  {brandsLoading ? (
+                    <AccordionSkeleton />
+                  ) : (
+                    <div className="accordion-item">
+                      <h2 className="accordion-header" id="brandsHeading">
+                        <button
+                          className="accordion-button"
+                          type="button"
+                          style={{ outline: 'none', boxShadow: 'none' }}
+                          data-bs-toggle="collapse"
+                          data-bs-target="#brandsCollapse"
+                          aria-expanded="true"
+                          aria-controls="brandsCollapse"
+                        >
+                          العلامات التجارية
+                        </button>
+                      </h2>
+                      <div
+                        id="brandsCollapse"
+                        className="accordion-collapse collapse show"
+                        aria-labelledby="brandsHeading"
+                        data-bs-parent="#brandsAccordion"
                       >
-                        العلامات التجارية
-                      </button>
-                    </h2>
-                    <div
-                      id="brandsCollapse"
-                      className="accordion-collapse collapse show"
-                      aria-labelledby="brandsHeading"
-                      data-bs-parent="#brandsAccordion"
-                    >
-                      <div className="accordion-body">
-                        {brandsData.map((brand, index) => (
-                          <div className="form-check" key={index}>
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              id={`brand-${index}`}
-                              value={brand._id}
-                              checked={brands.includes(brand._id)}
-                              onChange={handleBrands}
-                            />
-                            <label
-                              className="form-check-label"
-                              htmlFor={`brand-${index}`}
-                            >
-                              {brand.name}
-                            </label>
-                          </div>
-                        ))}
+                        <div className="accordion-body">
+                          {brandsData?.brands.map((brand, index) => (
+                            <div className="form-check" key={index}>
+                              <input
+                                className="form-check-input"
+                                type="checkbox"
+                                id={`brand-${index}`}
+                                value={brand._id}
+                                checked={queries.brandIds?.includes(brand._id)}
+                                onChange={handleBrands}
+                              />
+                              <label
+                                className="form-check-label"
+                                htmlFor={`brand-${index}`}
+                              >
+                                {brand.name}
+                              </label>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  )}
                 </div>
                 {/* price filter */}
                 <div className="my-4">
                   <div className="input-group">
                     <input
                       type="number"
-                      value={queries['max-price'] || ''}
+                      value={queries?.['max-price'] || ''}
                       onChange={handleChange}
                       className="form-control"
                       id="maxPrice"
@@ -257,7 +265,7 @@ const AllProducts = () => {
                 <div className="hero_btns d-flex align-items-center gap-5 mt-4 mb-5">
                   <button
                     className="shop_btn d-flex align-items-center justify-content-between gap-2"
-                    // onClick={scrollToNextSection}
+                    onClick={handleSubmit}
                   >
                     بحث
                   </button>
@@ -268,8 +276,9 @@ const AllProducts = () => {
               {/* Product display section */}
               <div className="products">
                 <Row>
-                  {isLoading
-                    ? [1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
+                  {productsQuery.isLoading
+                    ? // render loading skeletons
+                      [1, 2, 3, 4, 5, 6].map((item) => (
                         <Col
                           className="mt-5"
                           xl="4"
@@ -282,7 +291,8 @@ const AllProducts = () => {
                           <ProductCardSkeleton />
                         </Col>
                       ))
-                    : data?.products?.map((item) => (
+                    : // Render actual product cards
+                      productsQuery?.data.products?.map((item) => (
                         <Col
                           className="mb-5"
                           xl="4"
@@ -298,12 +308,21 @@ const AllProducts = () => {
                 </Row>
                 <div className="pagination-container">
                   <ReactPaginate
-                    pageCount={pageCount}
+                    pageCount={productsQuery?.data?.totalPages || 0}
                     onPageChange={changePage}
                     previousLabel="Prev"
                     nextLabel="Next"
                     containerClassName="paginationBtns"
                     activeClassName="active_pagination"
+                    breakClassName="page-item"
+                    breakLinkClassName="page-link"
+                    pageClassName="page-item"
+                    pageLinkClassName="page-link"
+                    previousClassName="page-item"
+                    previousLinkClassName="page-link"
+                    nextClassName="page-item"
+                    nextLinkClassName="page-link"
+                    disabledClassName="disabled"
                   />
                 </div>
               </div>
