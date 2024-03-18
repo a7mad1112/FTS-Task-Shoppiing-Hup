@@ -10,6 +10,7 @@ import { fetchData } from './../../utils/fetchData';
 import { useDispatch } from 'react-redux';
 import { cartActions } from '../../store/shopping-cart/cartSlice';
 import { cartContext } from '../../context/cartContext';
+import Skeleton from './../../component/skeletons/Skeleton';
 const ProductDetails = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -57,55 +58,82 @@ const ProductDetails = () => {
       theme: 'light',
     });
   };
-
   return (
     <Helmet title={product?.name}>
       <CommonSection title={product?.name} />
       <section>
         <Container>
-          <Row>
-            {imagesArray.length > 0 && (
+          {isLoading ? (
+            <Row>
               <Col lg="3" md="2" sm="4" xs="4">
                 <div className="product__images">
-                  {imagesArray.map((image, index) => (
-                    <div className="img__item mb-3" key={index}>
-                      <img
-                        className="w-50"
-                        src={image}
-                        alt={`product-img-${index}`}
-                        onClick={() => handleImageClick(image)}
-                      />
-                    </div>
-                  ))}
+                  <Skeleton classes="image width-50" />
+                  <Skeleton classes="image width-50" />
+                  <Skeleton classes="image width-50" />
                 </div>
               </Col>
-            )}
-            <Col lg="6" md="6" sm="8" xs="8">
-              <div className="single_product_img">
-                <img src={currentImage} alt={product.name + ' image'} />
-              </div>
-            </Col>
-            <Col lg="3" md="4" sm="12" xs="12" className="mt-4">
-              <div className="single_product">
-                <h2 className="product_title mb-3">{product.name}</h2>
-                <p className="product_price">
-                  السعر: <span>NIS {product.price}</span>
-                </p>
-                <p className="category">
-                  الفئة: <span>{product.subCategoryId?.name}</span>
-                </p>
-                {product.brandId && (
-                  <p className="category">
-                    العلامة التجارية: <span>{product.brandId?.name}</span>
+              <Col lg="6" md="6" sm="8" xs="8">
+                <div className="single_product_img">
+                  <Skeleton classes="image width-100" />
+                </div>
+              </Col>
+              <Col lg="3" md="4" sm="12" xs="12" className="mt-4">
+                <div className="single_product">
+                  <Skeleton classes="text width-50" />
+                  <Skeleton classes="text width-100" />
+                  <Skeleton classes="text width-100" />
+                  <Skeleton classes="text width-100" />
+                  <Skeleton classes="text width-100" />
+                  <Skeleton classes="text width-100" />
+                  <Skeleton classes="text width-50" />
+                </div>
+              </Col>
+            </Row>
+          ) : (
+            <Row>
+              {imagesArray.length > 0 && (
+                <Col lg="3" md="2" sm="4" xs="4">
+                  <div className="product__images">
+                    {imagesArray.map((image, index) => (
+                      <div className="img__item mb-3" key={index}>
+                        <img
+                          className="w-50"
+                          src={image}
+                          alt={`product-img-${index}`}
+                          onClick={() => handleImageClick(image)}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </Col>
+              )}
+              <Col lg="6" md="6" sm="8" xs="8">
+                <div className="single_product_img">
+                  <img src={currentImage} alt={product.name + ' image'} />
+                </div>
+              </Col>
+              <Col lg="3" md="4" sm="12" xs="12" className="mt-4">
+                <div className="single_product">
+                  <h2 className="product_title mb-3">{product.name}</h2>
+                  <p className="product_price">
+                    السعر: <span>NIS {product.price}</span>
                   </p>
-                )}
-                <p className="mb-4">{product.description}</p>
-                <button className="addToCart_btn" onClick={addToCart}>
-                  اضف الى السلة
-                </button>
-              </div>
-            </Col>
-          </Row>
+                  <p className="category">
+                    الفئة: <span>{product.subCategoryId?.name}</span>
+                  </p>
+                  {product.brandId && (
+                    <p className="category">
+                      العلامة التجارية: <span>{product.brandId?.name}</span>
+                    </p>
+                  )}
+                  <p className="mb-4">{product.description}</p>
+                  <button className="addToCart_btn" onClick={addToCart}>
+                    اضف الى السلة
+                  </button>
+                </div>
+              </Col>
+            </Row>
+          )}
         </Container>
       </section>
       {/* <section>
