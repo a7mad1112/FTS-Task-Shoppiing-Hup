@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import { cartActions } from '../../store/shopping-cart/cartSlice';
 import { cartContext } from '../../context/cartContext';
 import Skeleton from './../../component/skeletons/Skeleton';
+import ProductCardSkeleton from '../../component/skeletons/ProductCardSkeleton';
 const ProductDetails = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -58,6 +59,16 @@ const ProductDetails = () => {
       theme: 'light',
     });
   };
+  // related products
+  const subCategoryId = product.subCategoryId?._id;
+  const { data: relatedProducts, isLoading: relatedProductsLoading } = useQuery(
+    {
+      queryFn: () =>
+        fetchData(`products?subcategoryIds=${subCategoryId}&limit=4`),
+      queryKey: ['related-product'],
+      enabled: !!subCategoryId,
+    }
+  );
   return (
     <Helmet title={product?.name}>
       <CommonSection title={product?.name} />
@@ -136,28 +147,43 @@ const ProductDetails = () => {
           )}
         </Container>
       </section>
-      {/* <section>
+      <section>
         <Container>
           <Row>
             <Col className="mb-5 mt-4" lg="12">
               <h2>ربما يعجبك ايضا</h2>
             </Col>
-            {relatedProducts.map((item) => (
-              <Col
-                className="mb-4"
-                xl="3"
-                lg="4"
-                md="4"
-                sm="6"
-                xs="12"
-                key={item.id}
-              >
-                <ProductCard item={item} />
-              </Col>
-            ))}
+            {relatedProductsLoading
+              ? [1, 2, 3, 4].map((i) => (
+                  <Col
+                    className="mb-4"
+                    xl="3"
+                    lg="4"
+                    md="4"
+                    sm="6"
+                    xs="12"
+                    key={i}
+                  >
+                    <ProductCardSkeleton key={i} />
+                  </Col>
+                ))
+              : Array.isArray(relatedProducts?.products) &&
+                relatedProducts?.products?.map((item) => (
+                  <Col
+                    className="mb-4"
+                    xl="3"
+                    lg="4"
+                    md="4"
+                    sm="6"
+                    xs="12"
+                    key={item._id}
+                  >
+                    <ProductCard item={item} />
+                  </Col>
+                ))}
           </Row>
         </Container>
-      </section> */}
+      </section>
     </Helmet>
   );
 };
