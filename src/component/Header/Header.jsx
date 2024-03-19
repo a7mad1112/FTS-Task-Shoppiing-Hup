@@ -83,10 +83,29 @@ const Header = () => {
                     {item.toDisplay}
                   </NavLink>
                 ))}
+                {/* mobile social icons */}
+                <div className="nav_right d-flex align-items-center gap-1 gap-sm-3 gap-lg-4">
+                  <span className="cart_icon d-inline-block d-md-none">
+                    <Link
+                      to="https://www.instagram.com/a7mad.1112"
+                      target="_blank"
+                    >
+                      <i className="ri-instagram-line"></i>
+                    </Link>
+                  </span>
+                  <span className="cart_icon d-inline-block d-md-none">
+                    <Link
+                      to={`https://wa.me/+970592735331?text=${whatsAppText}`}
+                      target="_blank"
+                    >
+                      <i className="ri-whatsapp-line"></i>
+                    </Link>
+                  </span>
+                </div>
               </nav>
             </div>
 
-            {/* === right icons === */}
+            {/* === left icons === */}
             <div className="nav_right d-flex align-items-center gap-1 gap-sm-3 gap-lg-4">
               <span className="cart_icon" onClick={() => setCartUiShow(true)}>
                 <i className="ri-shopping-basket-line"></i>
