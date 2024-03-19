@@ -2,6 +2,7 @@ import React from 'react';
 import { Col, Container, ListGroup, ListGroupItem, Row } from 'reactstrap';
 import Logo from '../../pages/component/logo/Logo';
 import './footer.css';
+import { Link } from 'react-router-dom';
 const Footer = () => {
   return (
     <footer className="footer">

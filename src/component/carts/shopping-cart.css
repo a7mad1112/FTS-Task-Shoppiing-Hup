@@ -34,6 +34,7 @@
 
 .cart_list {
   height: calc(100vh - 140px);
+  overflow-y: scroll;
 }
 
 .cart_bottom {

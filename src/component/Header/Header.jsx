@@ -84,7 +84,7 @@ const Header = () => {
                   </NavLink>
                 ))}
                 {/* mobile social icons */}
-                <div className="nav_right d-flex align-items-center gap-1 gap-sm-3 gap-lg-4">
+                <div className="nav_right d-flex align-items-center gap-3 gap-sm-3 gap-lg-4">
                   <span className="cart_icon d-inline-block d-md-none">
                     <Link
                       to="https://www.instagram.com/a7mad.1112"
