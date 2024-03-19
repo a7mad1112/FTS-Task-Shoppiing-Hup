@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Container } from 'reactstrap';
 import { Link, NavLink } from 'react-router-dom';
 import './header.css';
@@ -42,6 +43,25 @@ const Header = () => {
     });
   }, []);
   const whatsAppText = 'مرحبا, ارغب الاستسفار عن منتجاتكم';
+  // handle search input
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
+
+  const handleSearch = () => {
+    if (searchQuery.trim() !== '') {
+      navigate(`/products?search=${encodeURIComponent(searchQuery)}`);
+    }
+  };
+
+  const handleChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      handleSearch();
+    }
+  };
   return (
     <>
       <header ref={headerRef} className="header">
@@ -89,14 +109,15 @@ const Header = () => {
                 <i className="ri-menu-line"></i>
               </span>
               <div className="search_widget header-search_widget d-flex align-items-center justify-content-between">
-                <span>
+                <span onClick={handleSearch}>
                   <i className="ri-search-line"></i>
                 </span>
                 <input
                   type="search"
                   placeholder="انا ابحث عن"
-                  // value={searchTerm}
-                  // onChange={(e) => setSearchTerm(e.target.value)}
+                  value={searchQuery}
+                  onChange={handleChange}
+                  onKeyDown={handleKeyDown}
                 />
               </div>
             </div>

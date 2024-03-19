@@ -10,6 +10,7 @@ import { fetchData } from './../../utils/fetchData';
 import ProductCardSkeleton from '../../component/skeletons/ProductCardSkeleton';
 import { reducer } from './sideBarReducer';
 import AccordionSkeleton from '../../component/skeletons/AccordionSkeleton';
+import { useLocation } from 'react-router-dom';
 
 const initialState = {
   search: '',
@@ -22,7 +23,14 @@ const initialState = {
 };
 
 const AllProducts = () => {
-  const [queries, dispatchQueries] = useReducer(reducer, initialState);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const initialSearch = searchParams.get('search') || '';
+
+  const [queries, dispatchQueries] = useReducer(reducer, {
+    ...initialState,
+    search: initialSearch,
+  });
 
   useEffect(() => {
     window.scrollTo(0, 0);
