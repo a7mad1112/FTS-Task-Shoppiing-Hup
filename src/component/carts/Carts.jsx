@@ -1,15 +1,16 @@
-import { useContext, useEffect, useRef } from 'react';
-import { cartContext } from '../../context/cartContext';
+import { useEffect, useRef } from 'react';
 import { ListGroup } from 'reactstrap';
+import { useDispatch, useSelector } from 'react-redux';
 import CartItem from './CartItem';
 import './shopping-cart.css';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { whatsAppInvoice } from '../../utils/whatsAppInvoice';
+import { cartUiActions } from './../../store/shopping-cart/cartUiSlice';
+
 const Carts = () => {
-  const { setCartUiShow } = useContext(cartContext);
   const { cartItems, totalAmount } = useSelector((state) => state.cart);
-  const toggleCart = () => setCartUiShow(false);
+  const dispatch = useDispatch();
+  const toggleCart = () => dispatch(cartUiActions.toggle());
   // close if clicking outside the bar
   const containerRef = useRef(null);
   const handleClickOutsideCart = (event) => {
@@ -18,16 +19,11 @@ const Carts = () => {
     }
   };
   useEffect(() => {
-    if (setCartUiShow) {
-      document.addEventListener('mousedown', handleClickOutsideCart);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutsideCart);
-    }
+    document.addEventListener('mousedown', handleClickOutsideCart);
     return () => {
       document.removeEventListener('mousedown', handleClickOutsideCart);
     };
-  }, [setCartUiShow]);
-  // create invoice for the whatsApp
+  }, []);
   const whatsAppMsgForm = whatsAppInvoice(cartItems, totalAmount);
   return (
     <div className="cart_container" ref={containerRef}>

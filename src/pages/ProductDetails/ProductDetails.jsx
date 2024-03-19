@@ -9,7 +9,7 @@ import { useQuery } from 'react-query';
 import { fetchData } from './../../utils/fetchData';
 import { useDispatch } from 'react-redux';
 import { cartActions } from '../../store/shopping-cart/cartSlice';
-import { cartContext } from '../../context/cartContext';
+import { toastifyContext } from '../../context/toastifyContext';
 import Skeleton from './../../component/skeletons/Skeleton';
 import ProductCardSkeleton from '../../component/skeletons/ProductCardSkeleton';
 const ProductDetails = () => {
@@ -45,7 +45,7 @@ const ProductDetails = () => {
     }
     return images;
   }, [product]);
-  const { toast } = useContext(cartContext);
+  const { toast } = useContext(toastifyContext);
   const addToCart = () => {
     dispatch(cartActions.addItem({ ...product }));
     toast.success('تمت اضافة ' + product.name + ' الى السلة', {

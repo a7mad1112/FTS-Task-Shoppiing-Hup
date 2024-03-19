@@ -1,18 +1,14 @@
-import React, { useContext } from "react";
-import Header from '../Header/Header'
-import Routers from '../../routes/Routers'
-import Footer from '../Footer/Footer'
-import { cartContext } from "../../context/cartContext";
-import Carts from "../carts/Carts";
+import Header from '../Header/Header';
+import Routers from '../../routes/Routers';
+import Footer from '../Footer/Footer';
+import Carts from '../carts/Carts';
+import { useSelector } from 'react-redux';
 const Layout = () => {
-  const { cartUiShow } = useContext(cartContext);
+  const showCart = useSelector((state) => state.cartUi.cartIsVisiable);
   return (
     <>
       <Header />
-      {/* {"Show cart here if its context is true"} */}
-      {
-        cartUiShow && <Carts />
-      }
+      {showCart && <Carts />}
       <Routers />
       <Footer />
     </>

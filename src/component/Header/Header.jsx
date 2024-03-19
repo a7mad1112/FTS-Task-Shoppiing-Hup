@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container } from 'reactstrap';
 import { Link, NavLink } from 'react-router-dom';
 import './header.css';
 import Logo from '../../pages/component/logo/Logo';
-import { cartContext } from '../../context/cartContext';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { cartUiActions } from '../../store/shopping-cart/cartUiSlice';
 const NAV_LINKS = [
   {
     toDisplay: 'الرئيسية',
@@ -25,7 +25,8 @@ const NAV_LINKS = [
 ];
 
 const Header = () => {
-  const { setCartUiShow } = useContext(cartContext);
+  const dispatch = useDispatch();
+  const toggleCart = () => dispatch(cartUiActions.toggle());
   const totalQuantity = useSelector((state) => state.cart.totalQuantity);
   const menuRef = useRef(null);
   const headerRef = useRef(null);
@@ -107,7 +108,7 @@ const Header = () => {
 
             {/* === left icons === */}
             <div className="nav_right d-flex align-items-center gap-1 gap-sm-3 gap-lg-4">
-              <span className="cart_icon" onClick={() => setCartUiShow(true)}>
+              <span className="cart_icon" onClick={toggleCart}>
                 <i className="ri-shopping-basket-line"></i>
                 <span className="cart_badge">{totalQuantity}</span>
               </span>

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { cartContext } from '../../context/cartContext';
+import { toastifyContext } from '../../context/toastifyContext';
 import Helmet from '../component/Helmet/Helmet';
 import CommonSection from '../component/commom-section/CommonSection';
 import { Col, Container, Row } from 'reactstrap';
@@ -75,11 +75,11 @@ const Cart = () => {
 };
 
 const Tr = (props) => {
-  const { toast } = useContext(cartContext);
+  const { toast } = useContext(toastifyContext);
   const dispatch = useDispatch();
   const handleDelete = () => {
     dispatch(cartActions.deleteItem(item._id));
-    toast.info('تمت ازالة ' + item.title + ' من السلة', {
+    toast.info('تمت ازالة ' + item.name + ' من السلة', {
       position: 'bottom-right',
       autoClose: 5000,
       hideProgressBar: false,

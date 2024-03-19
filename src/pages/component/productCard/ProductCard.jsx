@@ -3,10 +3,10 @@ import { cartActions } from '../../../store/shopping-cart/cartSlice';
 import './product-card.css';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
-import { cartContext } from '../../../context/cartContext';
+import { toastifyContext } from '../../../context/toastifyContext';
 const ProductCard = (props) => {
   const { _id, name, mainImage, price } = props.item;
-  const { toast } = useContext(cartContext);
+  const { toast } = useContext(toastifyContext);
   const dispatch = useDispatch();
   const addToCart = () => {
     dispatch(cartActions.addItem({ ...props.item }));
