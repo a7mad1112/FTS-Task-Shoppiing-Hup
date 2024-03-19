@@ -5,10 +5,13 @@ const initialState = {
   totalQuantity: 0,
   totalAmount: 0,
 };
-
+const loadCartFromLocalStorage = () => {
+  const cartState = localStorage.getItem('cartState');
+  return cartState ? JSON.parse(cartState) : initialState;
+};
 const cartSlice = createSlice({
   name: 'cart',
-  initialState: initialState,
+  initialState: loadCartFromLocalStorage(),
 
   reducers: {
     addItem(state, action) {
