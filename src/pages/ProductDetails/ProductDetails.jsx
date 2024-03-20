@@ -137,6 +137,22 @@ const ProductDetails = () => {
                       العلامة التجارية: <span>{product.brandId?.name}</span>
                     </p>
                   )}
+                  {product?.colors.length && (
+                    <p className="category">
+                      الالوان المتوفرة:
+                      {product?.colors.map((color) => (
+                        <span key={color}>{color}</span>
+                      ))}
+                    </p>
+                  )}
+                  {product?.sizes.length && (
+                    <p className="category">
+                      الأحجام المتوفرة:
+                      {product?.sizes.map((size) => (
+                        <span key={size}>{size?.toUpperCase()}</span>
+                      ))}
+                    </p>
+                  )}
                   <p className="mb-4">{product.description}</p>
                   <button className="addToCart_btn" onClick={addToCart}>
                     اضف الى السلة
@@ -168,19 +184,21 @@ const ProductDetails = () => {
                   </Col>
                 ))
               : Array.isArray(relatedProducts?.products) &&
-                relatedProducts?.products?.map((item) => (
-                  <Col
-                    className="mb-4"
-                    xl="3"
-                    lg="4"
-                    md="4"
-                    sm="6"
-                    xs="12"
-                    key={item._id}
-                  >
-                    <ProductCard item={item} />
-                  </Col>
-                ))}
+                relatedProducts?.products
+                  ?.filter((item) => item._id !== product._id)
+                  .map((item) => (
+                    <Col
+                      className="mb-4"
+                      xl="3"
+                      lg="4"
+                      md="4"
+                      sm="6"
+                      xs="12"
+                      key={item._id}
+                    >
+                      <ProductCard item={item} />
+                    </Col>
+                  ))}
           </Row>
         </Container>
       </section>
