@@ -21,10 +21,6 @@ const ProductCard = (props) => {
       theme: 'light',
     });
   };
-  const handleLinkClick = (event) => {
-    event.preventDefault();
-    window.location.href = `/products/${_id}`;
-  };
   return (
     <div className="product_item">
       <div className="product_img">
@@ -33,7 +29,7 @@ const ProductCard = (props) => {
 
       <div className="product_content">
         <h5>
-          <Link className="animated-link" onClick={handleLinkClick} to="#">
+          <Link className="animated-link" to={`/products/${_id}`}>
             {name}
           </Link>
         </h5>

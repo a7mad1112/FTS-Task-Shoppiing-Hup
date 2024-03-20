@@ -17,7 +17,7 @@ const ProductDetails = () => {
   const { id } = useParams();
   const { data, isLoading } = useQuery({
     queryFn: () => fetchData(`products/${id}`),
-    queryKey: ['get-specific-product'],
+    queryKey: [`products/${id}`],
   });
 
   const product = useMemo(() => data?.product || {}, [data]);
@@ -29,6 +29,9 @@ const ProductDetails = () => {
   const handleImageClick = (imageSrc) => {
     setCurrentImage(imageSrc);
   };
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   useEffect(() => {
     setCurrentImage(product.mainImage?.secure_url);
   }, [product.mainImage]);
