@@ -1,6 +1,6 @@
 export const fetchData = async (path) => {
   try {
-    const res = await fetch(`http://localhost:4000/${path}`);
+    const res = await fetch(`https://shehap-commerce.onrender.com/${path}`);
     if (!res.ok) {
       throw new Error(`Failed to fetch data from ${path}`);
     }
