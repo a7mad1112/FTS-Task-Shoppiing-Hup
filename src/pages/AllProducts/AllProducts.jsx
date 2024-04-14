@@ -16,6 +16,7 @@ const initialState = {
   search: '',
   page: 1,
   subcategoryIds: [],
+  categoryId: '',
   brandIds: [],
   'max-price': 0,
   limit: 6,
@@ -26,10 +27,11 @@ const AllProducts = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const initialSearch = searchParams.get('search') || '';
-
+  const categoryId = searchParams.get('categoryId') || '';
   const [queries, dispatchQueries] = useReducer(reducer, {
     ...initialState,
     search: initialSearch,
+    categoryId,
   });
 
   useEffect(() => {
@@ -187,9 +189,11 @@ const AllProducts = () => {
                                   id={`categorySubcategory-${subcategory._id}`}
                                   name="categories"
                                   value={subcategory._id}
-                                  checked={queries.subcategoryIds?.includes(
-                                    subcategory._id
-                                  )}
+                                  checked={
+                                    queries.subcategoryIds?.includes(
+                                      subcategory._id
+                                    ) || subcategory.categoryId === categoryId
+                                  }
                                   onChange={handleCategoriesChange}
                                 />
                                 <label

@@ -4,6 +4,7 @@ import { useQuery } from 'react-query';
 import './categories.css';
 import { fetchData } from '../../../../utils/fetchData';
 import CategoriesSkeleton from '../../../../component/skeletons/CategoriesSkeleton';
+import { Link } from 'react-router-dom';
 const Categories = () => {
   const { data, isLoading, isError } = useQuery({
     queryFn: () => fetchData('categories?limit=4'),
@@ -12,6 +13,7 @@ const Categories = () => {
   if (isError)
     return <h1>Error loading categories. Please try again later.</h1>;
   const categories = data?.categories || [];
+  console.log(categories);
   return (
     <Container>
       <Row>
@@ -20,12 +22,14 @@ const Categories = () => {
         ) : (
           categories?.map((item) => (
             <Col className="mb-4" lg="3" md="6" sm="6" xs="6" key={item._id}>
-              <div className="category_item d-flex align-items-center justify-content-center gap-3">
-                <h6>{item.name}</h6>
-                <div className="category_img">
-                  <img src={item.image?.secure_url} alt={item.name} />
+              <Link to={`/products?categoryId=${item._id}`}>
+                <div className="category_item d-flex align-items-center justify-content-center gap-3">
+                  <h6>{item.name}</h6>
+                  <div className="category_img">
+                    <img src={item.image?.secure_url} alt={item.name} />
+                  </div>
                 </div>
-              </div>
+              </Link>
             </Col>
           ))
         )}
